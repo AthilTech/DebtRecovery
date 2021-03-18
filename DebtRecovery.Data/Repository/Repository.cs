@@ -218,7 +218,7 @@ namespace DebtRecovery.Data.Repository
         //public IEnumerable<T> ExecuteStoreQuery(string commandText, params object[] parameters)
         //{
         //    try
-        //    {
+        //    {  
         //        return Context.Set<T>().FromSql(commandText, parameters).ToList();
         //    }
         //    catch (Exception e)
