@@ -6,7 +6,9 @@ namespace DebtRecovery.Domain.Models
 {
    public class TestModel
     {
-        public Guid TestModelId { get; set; }
-        public int MyProperty { get; set; }
+        public Guid TestModelId { get; set; } 
+        public int MyProperty { get; set; }  
+
+
     }
 }
