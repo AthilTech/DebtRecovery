@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace DebtRecovery.Api.DTOs.LocalDTOs
 {
-    public class TestModelDTO
+    public class UserDTO
     {
-        public Guid TestModelId { get; set; }
-        public int MyProperty { get; set; }
+
+        //properities
+        public Guid UserId { get; set; }
     }
 }
