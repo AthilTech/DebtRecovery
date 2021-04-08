@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DebtRecovery.Data\DebtRecovery.Data.csproj" />
+    <ProjectReference Include="..\DebtRecovery.Domain\DebtRecovery.Domain.csproj" />
     <ProjectReference Include="..\DebtRecovery.infra.Ioc\DebtRecovery.Infra.Ioc.csproj" />
   </ItemGroup>
 

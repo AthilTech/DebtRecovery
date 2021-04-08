@@ -10,6 +10,6 @@ namespace DebtRecovery.Domain.Models
     {   public Guid TripBillId { get; set; }
         public Guid FK_Trip { get; set; }
         public Guid FK_Bill { get; set; }
-        public Bill Bill { get; set; } 
+        public Bill Bill { get; set; }
     }
 }
