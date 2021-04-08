@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DebtRecovery.Api.DTOs.LocalDTOs;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -29,7 +29,7 @@ namespace DebtRecovery.Api.Controllers
 
 
         #region Standard WebMethods
-        // GET: api/promise
+        // GET: api/Promise
         [HttpGet]
         public IEnumerable<PromiseDTO> Get()
         {
@@ -41,22 +41,22 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public PromiseDTO Get(Guid id)
         {
-            Promise promise = _mediator.Send(new GetQuery<Promise>(condition: c => c.PromissId == id)).Result;
-            return _mapper.Map<PromiseDTO>(promise);
+            Promise Promise = _mediator.Send(new GetQuery<Promise>(condition: c => c.PromiseId == id)).Result;
+            return _mapper.Map<PromiseDTO>(Promise);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(Promise promise)
+        public async Task<string> Post(Promise Promise)
         {
-            return await _mediator.Send(new PostCommand<Promise>(promise));
+            return await _mediator.Send(new PostCommand<Promise>(Promise));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(Promise promise)
+        public async Task<string> Put(Promise Promise)
         {
-            return await _mediator.Send(new PutCommand<Promise>(promise));
+            return await _mediator.Send(new PutCommand<Promise>(Promise));
         }
 
 
@@ -71,5 +71,7 @@ namespace DebtRecovery.Api.Controllers
 
 
         #endregion
+
     }
 }
+

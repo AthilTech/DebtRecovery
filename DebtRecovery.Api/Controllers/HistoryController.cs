@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DebtRecovery.Api.DTOs.LocalDTOs;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 using System.Threading.Tasks;
 
 namespace DebtRecovery.Api.Controllers
@@ -27,8 +27,9 @@ namespace DebtRecovery.Api.Controllers
         }
 
 
+
         #region Standard WebMethods
-        // GET: api/history
+        // GET: api/History
         [HttpGet]
         public IEnumerable<HistoryDTO> Get()
         {
@@ -40,22 +41,22 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public HistoryDTO Get(Guid id)
         {
-            History history = _mediator.Send(new GetQuery<History>(condition: c => c.HistoryId == id)).Result;
-            return _mapper.Map<HistoryDTO>(history);
+            History History = _mediator.Send(new GetQuery<History>(condition: c => c.HistoryId == id)).Result;
+            return _mapper.Map<HistoryDTO>(History);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(History history)
+        public async Task<string> Post(History History)
         {
-            return await _mediator.Send(new PostCommand<History>(history));
+            return await _mediator.Send(new PostCommand<History>(History));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(History history)
+        public async Task<string> Put(History History)
         {
-            return await _mediator.Send(new PutCommand<History>(history));
+            return await _mediator.Send(new PutCommand<History>(History));
         }
 
 
@@ -70,5 +71,6 @@ namespace DebtRecovery.Api.Controllers
 
 
         #endregion
+
     }
 }

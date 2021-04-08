@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DebtRecovery.Api.DTOs.LocalDTOs;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -17,6 +17,7 @@ namespace DebtRecovery.Api.Controllers
     [ApiController]
     public class NoteController : ControllerBase
     {
+
         public readonly IMediator _mediator;
         private readonly IMapper _mapper;
         public NoteController(IMediator mediator, IMapper mapper)
@@ -27,7 +28,7 @@ namespace DebtRecovery.Api.Controllers
         }
 
         #region Standard WebMethods
-        // GET: api/Note
+        // GET: api/TestModel
         [HttpGet]
         public IEnumerable<NoteDTO> Get()
         {
@@ -39,22 +40,22 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public NoteDTO Get(Guid id)
         {
-            Note note = _mediator.Send(new GetQuery<Note>(condition: c => c.NoteId == id)).Result;
-            return _mapper.Map<NoteDTO>(note);
+            Note Note = _mediator.Send(new GetQuery<Note>(condition: n => n.NoteId == id)).Result;
+            return _mapper.Map<NoteDTO>(Note);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(Note note)
+        public async Task<string> Post(Note Note)
         {
-            return await _mediator.Send(new PostCommand<Note>(note));
+            return await _mediator.Send(new PostCommand<Note>(Note));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(Note note)
+        public async Task<string> Put(Note Note)
         {
-            return await _mediator.Send(new PutCommand<Note>(note));
+            return await _mediator.Send(new PutCommand<Note>(Note));
         }
 
 
@@ -69,8 +70,8 @@ namespace DebtRecovery.Api.Controllers
 
 
         #endregion
-
-
-
     }
 }
+
+
+

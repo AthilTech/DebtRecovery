@@ -3,36 +3,34 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using System.Data.SqlClient;
 
 namespace DebtRecovery.Data.Context
 {
-    public class DebtRecoveryContext: DbContext
+    public class DebtRecoveryContext : DbContext
     {
         public DebtRecoveryContext(DbContextOptions options) : base(options)
         {
 
         }
 
-        #region DbSets
-        
-        public DbSet<RecoveryAgent> RecoveryAgent { get; set; }
-        public DbSet<Bill> Bill { get; set; }
-        public DbSet<Activity> Activity { get; set; }
-        public DbSet<Client> Client { get; set; }
-       
-        public DbSet<Note> Note { get; set; }
-        public DbSet<Payment> Payment { get; set; }
-        public DbSet<Promise> Promise { get; set; }
-        public DbSet<RecoveryManager> RecoveryManager { get; set; }
-        public DbSet<Role> Role { get; set; }
-        public DbSet<Scenario> Scenario { get; set; }
-        public DbSet<Bill_Trip> bill_Trip { get; set; }
-        public DbSet<User> User { get; set; }
-        public DbSet<History> History { get; set; }
+        #region DbSets 
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Agent> Agents { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<Bill_Trip> Bill_Trips { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Scenario> Scenarios { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<Promise> Promises { get; set; }
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<History> Histories { get; set; }
 
-
-
-        #endregion
+        #endregion 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,126 +41,121 @@ namespace DebtRecovery.Data.Context
 
             #region Settings: set Primary keys
 
-           
-
-            modelBuilder.Entity<Activity>()
-                    .HasKey(a => a.ActivityId);
-
-
-            modelBuilder.Entity<Bill>()
-                        .HasKey(b => b.BillId);
-
-            modelBuilder.Entity<Client>()
-                      .HasKey(c => c.ClientId);
-
-            modelBuilder.Entity<Note>()
-                .HasKey(n => n.NoteId);
-
-            modelBuilder.Entity<Payment>()
-               .HasKey(p => p.PaymentID);
-
-            modelBuilder.Entity<Promise>()
-              .HasKey(p => p.PromissId);
-
             modelBuilder.Entity<Role>()
               .HasKey(r => r.RoleId);
 
-            modelBuilder.Entity<Scenario>()
-             .HasKey(s => s.ScenarioId);
+            modelBuilder.Entity<User>()
+             .HasKey(u => u.UserId);
+
+            modelBuilder.Entity<Bill>()
+            .HasKey(b => b.BillId);
 
             modelBuilder.Entity<Bill_Trip>()
-             .HasKey(s => s.Bill_TripId);
+                .HasKey(bt => bt.TripBillId);
 
-            modelBuilder.Entity<User>()
-          .HasKey(s => s.UserId);
+            modelBuilder.Entity<Payment>()
+            .HasKey(pa => pa.PaymentId);
+
+            modelBuilder.Entity<Promise>()
+            .HasKey(pr => pr.PromiseId);
 
             modelBuilder.Entity<History>()
-       .HasKey(s => s.HistoryId);
+            .HasKey(h => h.HistoryId);
+
+            modelBuilder.Entity<Note>()
+            .HasKey(n => n.NoteId);
+
+            modelBuilder.Entity<Scenario>()
+            .HasKey(s => s.ScenarioId);
+
+            modelBuilder.Entity<Activity>()
+            .HasKey(a => a.ActivityId);
+
+            modelBuilder.Entity<Client>()
+            .HasKey(cc => cc.ClientId);
+
 
 
             #endregion
 
             #region  Settings: set one to many relations
 
+            // configures one-to-many role-user relationship
             modelBuilder.Entity<User>()
-                .HasOne(r => r.Role)
+                .HasOne<Role>(r => r.Role)
                 .WithMany(u => u.Users)
                 .HasForeignKey(u => u.FK_Role);
 
+            modelBuilder.Entity<Activity>()
+                   .HasOne<Scenario>(s => s.Scenario)
+                   .WithMany(a => a.Activities)
+                   .HasForeignKey(a => a.FK_Scenario);
 
-            modelBuilder.Entity<RecoveryAgent>()
-               .HasOne(r => r.RecoveryManager)
-               .WithMany(a => a.RecoveryAgents)
-               .HasForeignKey(a => a.FK_Manager);
+            modelBuilder.Entity<Agent>()
+                   .HasOne<Manager>(ra => ra.Manager)
+                   .WithMany(ce => ce.Agents)
+                   .HasForeignKey(ra => ra.FK_Manager);
 
             modelBuilder.Entity<Client>()
-                   .HasOne(a => a.RecoveryAgent)
-                   .WithMany(c => c.Clients)
-                   .HasForeignKey(c => c.FK_Agent);
+                   .HasOne<Agent>(ag => ag.Agent)
+                   .WithMany(cl => cl.Clients)
+                    .HasForeignKey(ag => ag.FK_Agent);
 
+            //bill and client relationship is mising 
 
             modelBuilder.Entity<Bill>()
-                    .HasOne(c => c.client)
+                    .HasOne<Client>(cc => cc.Client)
                     .WithMany(b => b.Bills)
-                    .HasForeignKey(b => b.FK_Client);
-
-
-            modelBuilder.Entity<Payment>()
-                     .HasOne(b => b.Bill)
-                     .WithMany(p => p.Payments)
-                     .HasForeignKey(p => p.FK_Bill);
-
-
-            modelBuilder.Entity<Promise>()
-                    .HasOne(b => b.Bill)
-                    .WithMany(p => p.Promesses)
-                    .HasForeignKey(p => p.FK_Bill);
-          
-
-            modelBuilder.Entity<Note>()
-                     .HasOne(b => b.Bill)
-                     .WithMany(n => n.Notes)
-                     .HasForeignKey(p => p.FK_Bill);
-
-            modelBuilder.Entity<History>()
-                  .HasOne(b => b.Bill)
-                  .WithMany(n => n.histories)
-                  .HasForeignKey(p => p.FK_Bill);
-
-       /*     modelBuilder.Entity<Promise>()
-                .HasOne(b => b.Payment)
-                .WithMany(n => n.Promises)
-                .HasForeignKey(p => p.FK_Payment)
-            .OnDelete(DeleteBehavior.Restrict);*/
-
-            modelBuilder.Entity<Client>()
-              .HasOne(b => b.scenario)
-              .WithMany(n => n.Clients)
-              .HasForeignKey(p => p.FK_Scenario);
-
-            modelBuilder.Entity<Activity>()
-             .HasOne(b => b.Scenario)
-             .WithMany(n => n.Activities)
-             .HasForeignKey(p => p.FK_Scenario);
+                    .HasForeignKey(cc => cc.FK_Client);
 
             modelBuilder.Entity<Bill_Trip>()
-           .HasOne(b => b.Bill)
-           .WithMany(n => n.Bill_Trips)
-           .HasForeignKey(p => p.FK_Bill);
+                    .HasOne<Bill>(b=> b.Bill)
+                    .WithMany(bt => bt.Bill_Trips)
+                    .HasForeignKey(b => b.FK_Bill);
+
+            modelBuilder.Entity<Promise>()
+                .HasOne<Bill>(b => b.Bill)
+                .WithMany(p => p.Promises)
+                .HasForeignKey(b => b.FK_Bill);
+
+            modelBuilder.Entity<Payment>()
+                    .HasOne<Bill>(b => b.Bill)
+                    .WithMany(y => y.Payments)
+                    .HasForeignKey(b => b.FK_Bill);
+
+            modelBuilder.Entity<Note>()
+                   .HasOne<Bill>(b => b.Bill)
+                   .WithMany(n => n.Notes)
+                   .HasForeignKey(b => b.FK_Bill);
+
+            modelBuilder.Entity<History>()
+                   .HasOne<Bill>(b => b.Bill)
+                   .WithMany(n => n.Histories)
+                   .HasForeignKey(b => b.FK_Bill);
+
+            modelBuilder.Entity<Client>()
+            .HasOne<Scenario>(sc => sc.Scenario)
+            .WithMany(cl => cl.Clients)
+            .HasForeignKey(sc => sc.FK_Scenario);
+
+
+
+
+
+
+
             #endregion
 
-            #region  Settings: set one to one relations
-
-
-
-
+            #region  Settings: set one to one relations 
 
 
             #endregion
 
             #region  Settings: set one to Zero and zero to one relations
 
+            #endregion
 
+            #region maxlength 
             #endregion
         }
     }

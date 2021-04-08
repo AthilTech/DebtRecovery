@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DebtRecovery.Api.DTOs.LocalDTOs;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -17,6 +17,7 @@ namespace DebtRecovery.Api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+
         public readonly IMediator _mediator;
         private readonly IMapper _mapper;
         public UserController(IMediator mediator, IMapper mapper)
@@ -25,8 +26,9 @@ namespace DebtRecovery.Api.Controllers
             _mapper = mapper;
 
         }
+
         #region Standard WebMethods
-        // GET: api/USER
+        // GET: api/TestModel
         [HttpGet]
         public IEnumerable<UserDTO> Get()
         {
@@ -38,22 +40,22 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public UserDTO Get(Guid id)
         {
-            User user = _mediator.Send(new GetQuery<User>(condition: c => c.UserId == id)).Result;
-            return _mapper.Map<UserDTO>(user);
+            User User = _mediator.Send(new GetQuery<User>(condition: u => u.UserId == id)).Result;
+            return _mapper.Map<UserDTO>(User);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(User user)
+        public async Task<string> Post(Payment Payment)
         {
-            return await _mediator.Send(new PostCommand<User>(user));
+            return await _mediator.Send(new PostCommand<Payment>(Payment));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(User user)
+        public async Task<string> Put(User User)
         {
-            return await _mediator.Send(new PutCommand<User>(user));
+            return await _mediator.Send(new PutCommand<User>(User));
         }
 
 
@@ -68,9 +70,6 @@ namespace DebtRecovery.Api.Controllers
 
 
         #endregion
-
-
-
-
     }
 }
+

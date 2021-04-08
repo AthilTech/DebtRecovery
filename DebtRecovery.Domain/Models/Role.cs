@@ -4,15 +4,19 @@ using System.Text;
 
 namespace DebtRecovery.Domain.Models
 {
-   public class Role
+    public class Role
     {
-        // properities
+
+        //scalar properities
         public Guid RoleId { get; set; }
-        public string Login { get; set; }
-     
+        public int Login { get; set; }
+        public int Password { get; set; }
 
-
-        //navigation properties
+        //one-to-many with user 
         public ICollection<User> Users { get; set; }
+
+
+
+
     }
 }

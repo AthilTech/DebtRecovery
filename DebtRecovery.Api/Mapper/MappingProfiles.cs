@@ -1,68 +1,83 @@
 ﻿using AutoMapper;
-using DebtRecovery.Api.DTOs.LocalDTOs;
+using DebtRecovery.Api.Controllers;
 using DebtRecovery.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
+using DebtRecovery.Api.DTOs.ForeignDTOs;
+using DebtRecovery.Api.HttpClientCommunications;
+using System.Net.Http;
+
+
 
 namespace DebtRecovery.Api.Mapper
 {
     public class MappingProfiles : Profile
     {
-
+        TripCommunication TripCommunication = new TripCommunication();
         public MappingProfiles()
         {
-            CreateMap<Role, RoleDTO>()
-                .ReverseMap();
-
-            CreateMap<History, HistoryDTO>()
-                    .ReverseMap();
-
-
-            CreateMap<Payment, PaymentDTO>()
-                   .ReverseMap();
-
-
-
-            CreateMap<Promise, PromiseDTO>()
-                 .ReverseMap();
-
+            #region Bill 
 
             CreateMap<Bill, BillDTO>()
-               .ReverseMap();
+           .ReverseMap();
+            #endregion
+            #region RecoveryAgent 
 
+            CreateMap<Agent, AgentDTO>()
+       .ReverseMap();
+            #endregion
+            #region Activity 
 
-            CreateMap<Note, NoteDTO>()
-               .ReverseMap();
+            CreateMap<Activity, ActivityDTO>()
+       .ReverseMap();
+            #endregion
+            #region Promise 
 
-            CreateMap<RecoveryAgent, RecoveryAgentDTO>()
-               .ReverseMap();
+            CreateMap<Promise, PromiseDTO>()
+       .ReverseMap();
+            #endregion
+            #region Payment 
 
-            CreateMap<User, UserDTO>()
-               .ReverseMap();
+            CreateMap<Payment, PaymentDTO>()
+       .ReverseMap();
+            #endregion
+            #region Role 
 
-
-
-            CreateMap<RecoveryManager, RecoveryManagerDTO>()
-               .ReverseMap();
-
-
+            CreateMap<Role, RoleDTO>()
+       .ReverseMap();
+            #endregion
+            #region Scenario 
 
             CreateMap<Scenario, ScenarioDTO>()
-               .ReverseMap();
+       .ReverseMap();
+            #endregion
+            #region Note 
 
+            CreateMap<Note, NoteDTO>()
+       .ReverseMap();
+            #endregion
 
-            CreateMap<Activity,ActivityDTO>()
-               .ReverseMap();
+            #region History 
 
+            CreateMap<History, HistoryDTO>()
+       .ReverseMap();
+            #endregion
+            #region RecoveryManager 
 
-            CreateMap<Client, ClientDTO>()
-               .ReverseMap();
+            CreateMap<Manager, ManagerDTO>()
+       .ReverseMap();
+            #endregion
+            #region User 
 
-
-            CreateMap<Bill_Trip, Bill_TripDTO>()
-               .ReverseMap();
+            CreateMap<User, UserDTO>()
+       .ReverseMap();
+            #endregion
         }
+
     }
 }
+
+

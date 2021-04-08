@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DebtRecovery.Domain.Models
 {
-   public abstract class User
+    public abstract class User
+
     {
-        //properities
         public Guid UserId { get; set; }
+        public string LastName { get; set; }
         public string Name { get; set; }
-        
-        public int Telephonenumber { get; set; }
-        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Adress { get; set; }
         public string Email { get; set; }
-   
-        public int Identitycard { get; set; }
+        public string CIN { get; set; }
 
-        public int Subsidiary_Code  { get; set; }
+        //one to many with role 
 
-        //reference  properities
         public Guid FK_Role { get; set; }
         public Role Role { get; set; }
+
 
     }
 }

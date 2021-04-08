@@ -7,5 +7,7 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
 {
     public class ScenarioDTO
     {
+        public Guid ScenarioId { get; set; }
+        public string Type { get; set; }
     }
 }

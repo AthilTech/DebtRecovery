@@ -4,28 +4,41 @@ using System.Text;
 
 namespace DebtRecovery.Domain.Models
 {
-  public  class Bill
-    {   //properities
+    public class Bill
+    {
         public Guid BillId { get; set; }
-        public int Num { get; set; }
-        public float Totalamount { get; set; }
-        public DateTime Datecreation { get; set; }
-        public DateTime Datedeadline { get; set; }
-        public int Numberpayments { get; set; }
-        public String ModePayment { get; set; }
-        public int scenario_state { get; set; }
+        public int Number { get; set; }
+        public double Total { get; set; }
+        public DateTime Deadline { get; set; }
+        public DateTime CreationDate { get; set; }
+        public int NbPayments { get; set; }
+        public string PaymentMethod { get; set; }
+        public bool Scenario_State { get; set; }
 
+        //Navigation Properties
 
-        //reference  properities
-        public Guid FK_Client { get; set; }
-        public Client client { get; set; }
+        //many
 
+        public ICollection<Promise> Promises { get; set; }
 
-        //navigation properties
-        public ICollection<Payment> Payments { get; set; }
-        public ICollection<Promise> Promesses { get; set; }
         public ICollection<Note> Notes { get; set; }
-        public ICollection<History> histories { get; set; }
+
+        public ICollection<Payment> Payments { get; set; }
+
+        public ICollection<History> Histories { get; set; }
+
         public ICollection<Bill_Trip> Bill_Trips { get; set; }
+
+        public Guid FK_Client { get; set; }
+        public Client Client { get; set; }
+
+
+
+
+
+
+
+
+
     }
 }

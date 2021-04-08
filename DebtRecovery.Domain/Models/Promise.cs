@@ -4,23 +4,18 @@ using System.Text;
 
 namespace DebtRecovery.Domain.Models
 {
-   public class Promise
+    public class Promise
     {
-        //properities
 
-        public Guid PromissId { get; set; }
-        public DateTime Date { get; set; }
-        public float Amount { get; set; }
+        public Guid PromiseId { get; set; }
+        public DateTime PromiseDate { get; set; }
+        public double AmountPromised { get; set; }
 
+        public string Comment { get; set; }
 
-        //reference  properities
+        //one-many relations 
+
         public Guid FK_Bill { get; set; }
         public Bill Bill { get; set; }
-
-       // public Guid FK_Payment { get; set; }
-        //public Payment Payment{ get; set; }
-
-
-
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DebtRecovery.Api.DTOs.LocalDTOs;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -17,6 +17,7 @@ namespace DebtRecovery.Api.Controllers
     [ApiController]
     public class ActivityController : ControllerBase
     {
+
         public readonly IMediator _mediator;
         private readonly IMapper _mapper;
         public ActivityController(IMediator mediator, IMapper mapper)
@@ -25,6 +26,8 @@ namespace DebtRecovery.Api.Controllers
             _mapper = mapper;
 
         }
+
+
 
         #region Standard WebMethods
         // GET: api/Activity
@@ -39,22 +42,22 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public ActivityDTO Get(Guid id)
         {
-            Activity activity = _mediator.Send(new GetQuery<Activity>(condition: c => c.ActivityId == id)).Result;
-            return _mapper.Map<ActivityDTO>(activity);
+            Activity Activity = _mediator.Send(new GetQuery<Activity>(condition: c => c.ActivityId == id)).Result;
+            return _mapper.Map<ActivityDTO>(Activity);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(Activity activity)
+        public async Task<string> Post(Activity Activity)
         {
-            return await _mediator.Send(new PostCommand<Activity>(activity));
+            return await _mediator.Send(new PostCommand<Activity>(Activity));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(Activity activity)
+        public async Task<string> Put(Activity Activity)
         {
-            return await _mediator.Send(new PutCommand<Activity>(activity));
+            return await _mediator.Send(new PutCommand<Activity>(Activity));
         }
 
 
@@ -65,7 +68,10 @@ namespace DebtRecovery.Api.Controllers
         }
         #endregion
 
+        #region Custom Web Methods
 
+
+        #endregion
 
     }
 }

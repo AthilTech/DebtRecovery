@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -9,18 +10,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DebtRecovery.Api.DTOs.LocalDTOs;
+
 
 namespace DebtRecovery.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ScenarioController : ControllerBase
+    public class ManagerController : ControllerBase
     {
 
         public readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        public ScenarioController(IMediator mediator, IMapper mapper)
+        public ManagerController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
@@ -30,41 +31,41 @@ namespace DebtRecovery.Api.Controllers
 
 
         #region Standard WebMethods
-        // GET: api/Scenario
+        // GET: api/Manager
         [HttpGet]
-        public IEnumerable<ScenarioDTO> Get()
+        public IEnumerable<ManagerDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<Scenario>())
-                .Result.Select(comp => _mapper.Map<ScenarioDTO>(comp));
+            return _mediator.Send(new GetListQuery<Manager>())
+                .Result.Select(comp => _mapper.Map<ManagerDTO>(comp));
         }
 
 
         [HttpGet("{id}")]
-        public ScenarioDTO Get(Guid id)
+        public ManagerDTO Get(Guid id)
         {
-            Scenario Scenario = _mediator.Send(new GetQuery<Scenario>(condition: c => c.ScenarioId == id)).Result;
-            return _mapper.Map<ScenarioDTO>(Scenario);
+            Manager Manager = _mediator.Send(new GetQuery<Manager>(condition: c => c.ManagerId == id)).Result;
+            return _mapper.Map<ManagerDTO>(Manager);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(Scenario Scenario)
+        public async Task<string> Post(Manager Manager)
         {
-            return await _mediator.Send(new PostCommand<Scenario>(Scenario));
+            return await _mediator.Send(new PostCommand<Manager>(Manager));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(Scenario Scenario)
+        public async Task<string> Put(Manager Manager)
         {
-            return await _mediator.Send(new PutCommand<Scenario>(Scenario));
+            return await _mediator.Send(new PutCommand<Manager>(Manager));
         }
 
 
         [HttpDelete]
         public async Task<string> Delete(Guid id)
         {
-            return await _mediator.Send(new DeleteCommand<Scenario>(id));
+            return await _mediator.Send(new DeleteCommand<Manager>(id));
         }
         #endregion
 

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DebtRecovery.Api.DTOs.LocalDTOs;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -42,22 +42,22 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public BillDTO Get(Guid id)
         {
-            Bill bill = _mediator.Send(new GetQuery<Bill>(condition: c => c.BillId == id)).Result;
-            return _mapper.Map<BillDTO>(bill);
+            Bill Bill = _mediator.Send(new GetQuery<Bill>(condition: c => c.BillId == id)).Result;
+            return _mapper.Map<BillDTO>(Bill);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(Bill bill)
+        public async Task<string> Post(Bill Bill)
         {
-            return await _mediator.Send(new PostCommand<Bill>(bill));
+            return await _mediator.Send(new PostCommand<Bill>(Bill));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(Bill bill)
+        public async Task<string> Put(Bill Bill)
         {
-            return await _mediator.Send(new PutCommand<Bill>(bill));
+            return await _mediator.Send(new PutCommand<Bill>(Bill));
         }
 
 

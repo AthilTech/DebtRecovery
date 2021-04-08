@@ -28,13 +28,14 @@ namespace DebtRecovery.Api
 
             services.AddDbContext<DebtRecoveryContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
+                options.UseSqlServer("Data Source=DESKTOP-985HOB1;Initial Catalog=PGH.DebtRecovery;Integrated Security=True");
+
             });
 
 
             //
             services.AddMediatR(typeof(Startup));
-            
+
             //
             services.AddControllers();
 

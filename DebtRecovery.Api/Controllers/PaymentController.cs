@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DebtRecovery.Api.DTOs.LocalDTOs;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -27,6 +27,7 @@ namespace DebtRecovery.Api.Controllers
         }
 
 
+
         #region Standard WebMethods
         // GET: api/Payment
         [HttpGet]
@@ -40,22 +41,22 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public PaymentDTO Get(Guid id)
         {
-            Payment payment = _mediator.Send(new GetQuery<Payment>(condition: c => c.PaymentID == id)).Result;
-            return _mapper.Map<PaymentDTO>(payment);
+            Payment Payment = _mediator.Send(new GetQuery<Payment>(condition: c => c.PaymentId == id)).Result;
+            return _mapper.Map<PaymentDTO>(Payment);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(Payment payment)
+        public async Task<string> Post(Payment Payment)
         {
-            return await _mediator.Send(new PostCommand<Payment>(payment));
+            return await _mediator.Send(new PostCommand<Payment>(Payment));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(Payment payment)
+        public async Task<string> Put(Payment Payment)
         {
-            return await _mediator.Send(new PutCommand<Payment>(payment));
+            return await _mediator.Send(new PutCommand<Payment>(Payment));
         }
 
 
@@ -70,7 +71,6 @@ namespace DebtRecovery.Api.Controllers
 
 
         #endregion
-
 
     }
 }

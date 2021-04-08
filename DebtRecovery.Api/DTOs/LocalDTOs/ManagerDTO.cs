@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace DebtRecovery.Api.DTOs.LocalDTOs
 {
-    public class RoleDTO
+    public class ManagerDTO: UserDTO
     {
-        public Guid RoleId { get; set; }
-        public int Login { get; set; }
-        public int Password { get; set; }
+        public Guid ManagerId { get; set; }
     }
 }

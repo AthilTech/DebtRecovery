@@ -4,30 +4,36 @@ using System.Text;
 
 namespace DebtRecovery.Domain.Models
 {
-   public class Client
+     public class Client
+
     {
-        //    properities
         public Guid ClientId { get; set; }
         public string Name { get; set; }
         public string Contact { get; set; }
-        public string Address { get; set; }
+        public string Tel_m { get; set; }
+        public string Tel_f { get; set; }
+        public string Profile { get; set; }
+        public string Adress { get; set; }
         public string Email { get; set; }
-        public string Profil { get; set; }
+        public string CIN { get; set; }
         public string Type { get; set; }
-        public int Telephonenumber { get; set; }
-        public int Telephonenumberfixe { get; set; }
 
-        //reference  properities
-        public Guid FK_Agent { get; set; }
-        public RecoveryAgent RecoveryAgent { get; set; }
+        //relationships 
 
-        public Guid FK_Scenario { get; set; }
-        public Scenario scenario { get; set; }
-
-        //navigation properties
+        //Bill 
         public ICollection<Bill> Bills { get; set; }
+        //Agent
+        public Guid FK_Agent { get; set; }
+        public Agent Agent { get; set; }
+        // scenario 
+        public Guid FK_Scenario { get; set; }
+        public Scenario Scenario { get; set; }
 
-        
+
+
+
+
 
     }
 }
+

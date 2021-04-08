@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DebtRecovery.Api.DTOs.LocalDTOs;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -25,13 +25,12 @@ namespace DebtRecovery.Api.Controllers
             _mediator = mediator;
             _mapper = mapper;
 
-
         }
 
 
 
         #region Standard WebMethods
-        // GET: api/Role
+        // GET: api/Bill
         [HttpGet]
         public IEnumerable<RoleDTO> Get()
         {
@@ -43,22 +42,22 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public RoleDTO Get(Guid id)
         {
-            Role role = _mediator.Send(new GetQuery<Role>(condition: c => c.RoleId == id)).Result;
-            return _mapper.Map<RoleDTO>(role);
+            Role Role = _mediator.Send(new GetQuery<Role>(condition: c => c.RoleId == id)).Result;
+            return _mapper.Map<RoleDTO>(Role);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(Role role)
+        public async Task<string> Post(Role Role)
         {
-            return await _mediator.Send(new PostCommand<Role>(role));
+            return await _mediator.Send(new PostCommand<Role>(Role));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(Role role)
+        public async Task<string> Put(Role Role)
         {
-            return await _mediator.Send(new PutCommand<Role>(role));
+            return await _mediator.Send(new PutCommand<Role>(Role));
         }
 
 
@@ -73,5 +72,6 @@ namespace DebtRecovery.Api.Controllers
 
 
         #endregion
+
     }
 }

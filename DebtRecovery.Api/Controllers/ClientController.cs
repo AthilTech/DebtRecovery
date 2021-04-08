@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DebtRecovery.Api.DTOs.LocalDTOs;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -10,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -27,8 +27,9 @@ namespace DebtRecovery.Api.Controllers
         }
 
 
+
         #region Standard WebMethods
-        // GET: api/client
+        // GET: api/Client
         [HttpGet]
         public IEnumerable<ClientDTO> Get()
         {
@@ -40,22 +41,22 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public ClientDTO Get(Guid id)
         {
-            Client client = _mediator.Send(new GetQuery<Client>(condition: c => c.ClientId == id)).Result;
-            return _mapper.Map<ClientDTO>(client);
+            Client Client = _mediator.Send(new GetQuery<Client>(condition: c => c.ClientId == id)).Result;
+            return _mapper.Map<ClientDTO>(Client);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(Client client)
+        public async Task<string> Post(Client Client)
         {
-            return await _mediator.Send(new PostCommand<Client>(client));
+            return await _mediator.Send(new PostCommand<Client>(Client));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(Client client)
+        public async Task<string> Put(Client Client)
         {
-            return await _mediator.Send(new PutCommand<Client>(client));
+            return await _mediator.Send(new PutCommand<Client>(Client));
         }
 
 
@@ -67,6 +68,7 @@ namespace DebtRecovery.Api.Controllers
         #endregion
 
         #region Custom Web Methods
+
 
         #endregion
 
