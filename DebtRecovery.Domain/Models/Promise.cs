@@ -15,7 +15,7 @@ namespace DebtRecovery.Domain.Models
 
         //one-many relations 
 
-        public Guid fk_Bill { get; set; }
+        public Guid FK_Bill { get; set; }
         public Bill Bill { get; set; }
     }
 }

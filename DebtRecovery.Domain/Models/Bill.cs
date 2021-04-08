@@ -13,7 +13,7 @@ namespace DebtRecovery.Domain.Models
         public DateTime CreationDate { get; set; }
         public int NbPayments { get; set; }
         public string PaymentMethod { get; set; }
-        public bool scenario_state { get; set; }
+        public bool Scenario_State { get; set; }
 
         //Navigation Properties
 
@@ -27,8 +27,9 @@ namespace DebtRecovery.Domain.Models
 
         public ICollection<History> Histories { get; set; }
 
+        public ICollection<Bill_Trip> Bill_Trips { get; set; }
 
-        public Guid fk_Client { get; set; }
+        public Guid FK_Client { get; set; }
         public Client Client { get; set; }
 
 

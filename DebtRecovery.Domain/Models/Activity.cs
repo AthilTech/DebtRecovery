@@ -18,7 +18,7 @@ namespace DebtRecovery.Domain.Models
         //reference properities
 
         //one to many with scenario
-        public Guid fk_Scenario { get; set; }
+        public Guid FK_Scenario { get; set; }
         public Scenario Scenario { get; set; }
 
     }

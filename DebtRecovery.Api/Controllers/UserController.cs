@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 
 namespace DebtRecovery.Api.Controllers
 {

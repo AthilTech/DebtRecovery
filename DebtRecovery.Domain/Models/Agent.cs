@@ -13,7 +13,7 @@ namespace DebtRecovery.Domain.Models
 
         //reference properities
 
-        public Guid? fk_Manager { get; set; }
+        public Guid? FK_Manager { get; set; }
         //the question mark is to make it nullable thats how we avoid the cascade error 1785 https://stackoverflow.com/questions/12868912/specify-on-delete-no-action-in-asp-net-mvc-4-c-sharp-code-first
         public Manager Manager { get; set; }
 

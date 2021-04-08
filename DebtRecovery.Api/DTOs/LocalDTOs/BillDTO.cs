@@ -14,7 +14,7 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public DateTime CreationDate { get; set; }
         public int NbPayments { get; set; }
         public string PaymentMethod { get; set; }
-        public bool scenario_state { get; set; }
+        public bool Scenario_State { get; set; }
 
     }
 }

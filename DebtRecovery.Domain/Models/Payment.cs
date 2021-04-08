@@ -14,7 +14,7 @@ namespace DebtRecovery.Domain.Models
         public double PayedAmount { get; set; }
         // 
 
-        public Guid fk_Bill { get; set; }
+        public Guid FK_Bill { get; set; }
         public Bill Bill { get; set; }
 
     }

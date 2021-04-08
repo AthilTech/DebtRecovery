@@ -5,11 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
+using DebtRecovery.Api.DTOs.ForeignDTOs;
+using DebtRecovery.Api.HttpClientCommunications;
+using System.Net.Http;
+
+
 
 namespace DebtRecovery.Api.Mapper
 {
     public class MappingProfiles : Profile
     {
+        TripCommunication TripCommunication = new TripCommunication();
         public MappingProfiles()
         {
             #region Bill 

@@ -9,8 +9,8 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
     {
         public Guid ClientId { get; set; }
         public string Name { get; set; }
-        public string contact { get; set; }
-        public string Tel_m { get; set; }
+        public string Contact { get; set; }
+        public string Tel_m{ get; set; }
         public string Tel_f { get; set; }
         public string Profile { get; set; }
         public string Adress { get; set; }

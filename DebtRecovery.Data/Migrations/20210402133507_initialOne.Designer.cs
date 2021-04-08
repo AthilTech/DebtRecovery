@@ -4,14 +4,16 @@ using DebtRecovery.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    partial class DebtRecoveryContextModelSnapshot : ModelSnapshot
+    [Migration("20210402133507_initialOne")]
+    partial class initialOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,25 +90,6 @@ namespace DebtRecovery.Data.Migrations
                     b.HasIndex("FK_Client");
 
                     b.ToTable("Bills");
-                });
-
-            modelBuilder.Entity("DebtRecovery.Domain.Models.Bill_Trip", b =>
-                {
-                    b.Property<Guid>("TripBillId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FK_Bill")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FK_Trip")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("TripBillId");
-
-                    b.HasIndex("FK_Bill");
-
-                    b.ToTable("Bill_Trips");
                 });
 
             modelBuilder.Entity("DebtRecovery.Domain.Models.Client", b =>
@@ -376,15 +359,6 @@ namespace DebtRecovery.Data.Migrations
                     b.HasOne("DebtRecovery.Domain.Models.Client", "Client")
                         .WithMany("Bills")
                         .HasForeignKey("FK_Client")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DebtRecovery.Domain.Models.Bill_Trip", b =>
-                {
-                    b.HasOne("DebtRecovery.Domain.Models.Bill", "Bill")
-                        .WithMany("Bill_Trips")
-                        .HasForeignKey("FK_Bill")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

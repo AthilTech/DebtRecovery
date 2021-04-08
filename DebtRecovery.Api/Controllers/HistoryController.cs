@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DebtRecovery.Api.DTOs.LocalDTOs;
 using System.Threading.Tasks;
 
 namespace DebtRecovery.Api.Controllers
