@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DebtRecovery.Api.DTOs.LocalDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -32,11 +33,14 @@ namespace DebtRecovery.Api.Controllers
         #region Standard WebMethods
         // GET: api/Bill
         [HttpGet]
-        public IEnumerable<BillDTO> Get()
+
+        public IEnumerable<PaymentDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<Bill>())
-                .Result.Select(comp => _mapper.Map<BillDTO>(comp));
+            return _mediator.Send(new GetListQuery<Payment>(null, includes: i => i.Include(b => b.Bill).ThenInclude(b => b.Client)))
+                .Result.Select(comp => _mapper.Map<PaymentDTO>(comp));
+
         }
+
 
 
         [HttpGet("{id}")]
