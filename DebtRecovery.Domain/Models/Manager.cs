@@ -8,7 +8,7 @@ namespace DebtRecovery.Domain.Models
 {
     public class Manager : User
     {
-        public Guid ManagerId { get; set; }
+        
         public ICollection<Agent> Agents { get; set; }
 
     }

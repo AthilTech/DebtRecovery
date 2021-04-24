@@ -8,7 +8,7 @@ namespace DebtRecovery.Domain.Models
 {
     public class Agent : User
     {
-        public Guid AgentId { get; set; }
+       
 
 
         //reference properities

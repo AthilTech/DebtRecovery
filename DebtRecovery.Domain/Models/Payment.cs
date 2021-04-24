@@ -10,7 +10,7 @@ namespace DebtRecovery.Domain.Models
         public Guid PaymentId { get; set; }
         public string PaymentMethod { get; set; }
         public DateTime DueDate { get; set; }
-        public double AmountToPay { get; set; }
+
         public double PayedAmount { get; set; }
         // 
 

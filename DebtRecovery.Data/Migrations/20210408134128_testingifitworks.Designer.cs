@@ -4,14 +4,16 @@ using DebtRecovery.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    partial class DebtRecoveryContextModelSnapshot : ModelSnapshot
+    [Migration("20210408134128_testingifitworks")]
+    partial class testingifitworks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,14 +129,11 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("FK_Agent")
+                    b.Property<Guid>("FK_Agent")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("FK_Scenario")
+                    b.Property<Guid>("FK_Scenario")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Litige")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -200,9 +199,6 @@ namespace DebtRecovery.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -259,11 +255,11 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("FK_Bill")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("PromiseDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("PromiseId");
 
@@ -278,8 +274,11 @@ namespace DebtRecovery.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Label")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Login")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Password")
+                        .HasColumnType("int");
 
                     b.HasKey("RoleId");
 
@@ -325,13 +324,7 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Login")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -350,6 +343,9 @@ namespace DebtRecovery.Data.Migrations
                 {
                     b.HasBaseType("DebtRecovery.Domain.Models.User");
 
+                    b.Property<Guid>("AgentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("FK_Manager")
                         .HasColumnType("uniqueidentifier");
 
@@ -361,6 +357,9 @@ namespace DebtRecovery.Data.Migrations
             modelBuilder.Entity("DebtRecovery.Domain.Models.Manager", b =>
                 {
                     b.HasBaseType("DebtRecovery.Domain.Models.User");
+
+                    b.Property<Guid>("ManagerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasDiscriminator().HasValue("Manager");
                 });
@@ -396,11 +395,15 @@ namespace DebtRecovery.Data.Migrations
                 {
                     b.HasOne("DebtRecovery.Domain.Models.Agent", "Agent")
                         .WithMany("Clients")
-                        .HasForeignKey("FK_Agent");
+                        .HasForeignKey("FK_Agent")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DebtRecovery.Domain.Models.Scenario", "Scenario")
                         .WithMany("Clients")
-                        .HasForeignKey("FK_Scenario");
+                        .HasForeignKey("FK_Scenario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DebtRecovery.Domain.Models.History", b =>

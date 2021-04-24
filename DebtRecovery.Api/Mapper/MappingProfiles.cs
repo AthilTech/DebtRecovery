@@ -75,6 +75,22 @@ namespace DebtRecovery.Api.Mapper
             CreateMap<User, UserDTO>()
        .ReverseMap();
             #endregion
+            #region Client 
+
+            CreateMap<Client, ClientDTO>()
+       .ReverseMap();
+          
+
+            CreateMap<Client, ClientEnLitigeDTO>()
+                
+       .ReverseMap();
+            CreateMap<Client, ClientInfoDTO>()
+                  .ForMember(b => b.TotalPayed, i => i.MapFrom(src => src.Bills.Select(o => o.Payments.Sum(p=>p.PayedAmount)).Sum()))
+
+      .ReverseMap();
+            #endregion 
+
+
         }
 
     }

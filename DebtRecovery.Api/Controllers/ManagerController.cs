@@ -43,7 +43,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public ManagerDTO Get(Guid id)
         {
-            Manager Manager = _mediator.Send(new GetQuery<Manager>(condition: c => c.ManagerId == id)).Result;
+            Manager Manager = _mediator.Send(new GetQuery<Manager>(condition: c => c.UserId == id)).Result;
             return _mapper.Map<ManagerDTO>(Manager);
         }
 
