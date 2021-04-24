@@ -18,4 +18,14 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public string CIN { get; set; }
         public string Type { get; set; }
     }
+
+    public class ClientupdateScenarioDTO
+    {
+        public Guid ClientId { get; set; }
+
+        public Guid FK_Scenario { get; set; }
+    }
+
+
+
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    [Migration("20210402140543_BillTripUpdate")]
-    partial class BillTripUpdate
+    [Migration("20210415122733_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -252,9 +252,6 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<double>("AmountPromised")
                         .HasColumnType("float");
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("FK_Bill")
                         .HasColumnType("uniqueidentifier");
 
@@ -274,11 +271,8 @@ namespace DebtRecovery.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Login")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Password")
-                        .HasColumnType("int");
+                    b.Property<string>("Label")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoleId");
 

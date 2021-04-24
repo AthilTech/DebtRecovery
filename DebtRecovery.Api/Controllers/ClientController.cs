@@ -69,8 +69,20 @@ namespace DebtRecovery.Api.Controllers
 
         #region Custom Web Methods
 
+        [HttpPut("putScenario")]
+        public async Task<string> PutScenario(ClientupdateScenarioDTO clientupdateScenarioDTO)
+        {
+            Client Client = _mediator.Send(new GetQuery<Client>(condition: c => c.ClientId == clientupdateScenarioDTO.ClientId)).Result;
+            Client.FK_Scenario = clientupdateScenarioDTO.FK_Scenario;
+            return await _mediator.Send(new PutCommand<Client>(Client));
+        }
+
+
 
         #endregion
+
+
+
 
     }
 }

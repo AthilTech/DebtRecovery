@@ -250,9 +250,6 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<double>("AmountPromised")
                         .HasColumnType("float");
 
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("FK_Bill")
                         .HasColumnType("uniqueidentifier");
 
@@ -272,11 +269,8 @@ namespace DebtRecovery.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Login")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Password")
-                        .HasColumnType("int");
+                    b.Property<string>("Label")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoleId");
 

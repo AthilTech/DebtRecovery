@@ -59,7 +59,11 @@ namespace DebtRecovery.Api.Mapper
             CreateMap<Note, NoteDTO>()
        .ReverseMap();
             #endregion
+            #region Customer
 
+            CreateMap<Client, ClientDTO>()
+       .ReverseMap();
+            #endregion
             #region History 
 
             CreateMap<History, HistoryDTO>()
