@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DebtRecovery.Api.DTOs.LocalDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -67,7 +68,25 @@ namespace DebtRecovery.Api.Controllers
         }
         #endregion
 
-        #region Custom Web Methods
+        #region Custom Web Methods 
+        [HttpGet("GetLitige")]
+        public IEnumerable<ClientDTO> GetLitige()
+        {
+            return _mediator.Send(new GetListQuery<Client>(condition: c => c.Litige))
+                .Result.Select(comp => _mapper.Map<ClientDTO>(comp));
+
+           
+        }
+        [HttpGet("getClientInfo")]
+        public ClientInfoDTO getClientInfo(Guid id)
+        {
+            Client Client = _mediator.Send(new GetQuery<Client>(condition: c => c.ClientId == id,
+                includes: i => i.Include(c => c.Bills).ThenInclude(b=>b.Payments))).Result;
+            return _mapper.Map<ClientInfoDTO>(Client);
+        }
+
+
+
 
 
         #endregion

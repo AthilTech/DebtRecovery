@@ -10,7 +10,12 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public Guid PaymentId { get; set; }
         public string PaymentMethod { get; set; }
         public DateTime DueDate { get; set; }
-        public double AmountToPay { get; set; }
+
         public double PayedAmount { get; set; }
+    } 
+    public class PaymentSumDTO
+    {
+        public List<PaymentDTO> Payments { get; set; }
+        public double Sum { get; set; }
     }
 }

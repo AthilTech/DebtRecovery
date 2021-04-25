@@ -42,7 +42,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public AgentDTO Get(Guid id)
         {
-            Agent Agent = _mediator.Send(new GetQuery<Agent>(condition: c => c.AgentId == id)).Result;
+            Agent Agent = _mediator.Send(new GetQuery<Agent>(condition: c => c.UserId == id)).Result;
             return _mapper.Map<AgentDTO>(Agent);
         }
 

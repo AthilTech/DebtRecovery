@@ -11,7 +11,6 @@ namespace DebtRecovery.Domain.Models
         public double Total { get; set; }
         public DateTime Deadline { get; set; }
         public DateTime CreationDate { get; set; }
-        public int NbPayments { get; set; }
         public string PaymentMethod { get; set; }
         public bool Scenario_State { get; set; }
 
