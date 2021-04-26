@@ -140,14 +140,14 @@ namespace DebtRecovery.Infra.Ioc
 
             #endregion
 
-            #region Client
+            #region Customer
 
-            services.AddTransient<IRepository<Client>, Repository<Client>>();
-            services.AddTransient<IRequestHandler<PostCommand<Client>, string>, PostHandler<Client>>();
-            services.AddTransient<IRequestHandler<PutCommand<Client>, string>, PutHandler<Client>>();
-            services.AddTransient<IRequestHandler<DeleteCommand<Client>, string>, DeleteHandler<Client>>();
-            services.AddTransient<IRequestHandler<GetListQuery<Client>, IEnumerable<Client>>, GetListHandler<Client>>();
-            services.AddTransient<IRequestHandler<GetQuery<Client>, Client>, GetHandler<Client>>();
+            services.AddTransient<IRepository<Customer>, Repository<Customer>>();
+            services.AddTransient<IRequestHandler<PostCommand<Customer>, string>, PostHandler<Customer>>();
+            services.AddTransient<IRequestHandler<PutCommand<Customer>, string>, PutHandler<Customer>>();
+            services.AddTransient<IRequestHandler<DeleteCommand<Customer>, string>, DeleteHandler<Customer>>();
+            services.AddTransient<IRequestHandler<GetListQuery<Customer>, IEnumerable<Customer>>, GetListHandler<Customer>>();
+            services.AddTransient<IRequestHandler<GetQuery<Customer>, Customer>, GetHandler<Customer>>();
 
             #endregion
 

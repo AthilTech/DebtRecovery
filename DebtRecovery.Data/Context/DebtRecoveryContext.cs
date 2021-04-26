@@ -17,12 +17,12 @@ namespace DebtRecovery.Data.Context
 
         #region DbSets 
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Client> Clients { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Agent> Agents { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Bill> Bills { get; set; }
-        public DbSet<Bill_Trip> Bill_Trips { get; set; }
+        public DbSet<BillTrip> BillTrips { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Scenario> Scenarios { get; set; }
         public DbSet<Activity> Activities { get; set; }
@@ -50,7 +50,7 @@ namespace DebtRecovery.Data.Context
             modelBuilder.Entity<Bill>()
             .HasKey(b => b.BillId);
 
-            modelBuilder.Entity<Bill_Trip>()
+            modelBuilder.Entity<BillTrip>()
                 .HasKey(bt => bt.TripBillId);
 
             modelBuilder.Entity<Payment>()
@@ -71,8 +71,8 @@ namespace DebtRecovery.Data.Context
             modelBuilder.Entity<Activity>()
             .HasKey(a => a.ActivityId);
 
-            modelBuilder.Entity<Client>()
-            .HasKey(cc => cc.ClientId);
+            modelBuilder.Entity<Customer>()
+            .HasKey(cc => cc.CustomerId);
 
 
 
@@ -96,21 +96,21 @@ namespace DebtRecovery.Data.Context
                    .WithMany(ce => ce.Agents)
                    .HasForeignKey(ra => ra.FK_Manager);
 
-            modelBuilder.Entity<Client>()
+            modelBuilder.Entity<Customer>()
                    .HasOne<Agent>(ag => ag.Agent)
-                   .WithMany(cl => cl.Clients)
+                   .WithMany(cl => cl.Customers)
                     .HasForeignKey(ag => ag.FK_Agent);
 
-            //bill and client relationship is mising 
+            //bill and Customerrelationship is mising 
 
             modelBuilder.Entity<Bill>()
-                    .HasOne<Client>(cc => cc.Client)
+                    .HasOne<Customer>(cc => cc.Customer)
                     .WithMany(b => b.Bills)
-                    .HasForeignKey(cc => cc.FK_Client);
+                    .HasForeignKey(cc => cc.FK_Customer);
 
-            modelBuilder.Entity<Bill_Trip>()
+            modelBuilder.Entity<BillTrip>()
                     .HasOne<Bill>(b=> b.Bill)
-                    .WithMany(bt => bt.Bill_Trips)
+                    .WithMany(bt => bt.BillTrips)
                     .HasForeignKey(b => b.FK_Bill);
 
             modelBuilder.Entity<Promise>()
@@ -133,9 +133,9 @@ namespace DebtRecovery.Data.Context
                    .WithMany(n => n.Histories)
                    .HasForeignKey(b => b.FK_Bill);
 
-            modelBuilder.Entity<Client>()
+            modelBuilder.Entity<Customer>()
             .HasOne<Scenario>(sc => sc.Scenario)
-            .WithMany(cl => cl.Clients)
+            .WithMany(cl => cl.Customers)
             .HasForeignKey(sc => sc.FK_Scenario);
 
 

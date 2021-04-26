@@ -22,7 +22,7 @@ namespace DebtRecovery.Api.Mapper
             #region Bill 
 
             CreateMap<Bill, BillDTO>()
-            .ForMember(c => c.FK_Client, i => i.MapFrom(src => src.Client.ClientId))
+            .ForMember(c => c.FK_Customer, i => i.MapFrom(src => src.Customer.CustomerId))
 
              .ReverseMap();
             #endregion
@@ -61,7 +61,6 @@ namespace DebtRecovery.Api.Mapper
             CreateMap<Note, NoteDTO>()
        .ReverseMap();
             #endregion
-
             #region History 
 
             CreateMap<History, HistoryDTO>()
@@ -77,24 +76,12 @@ namespace DebtRecovery.Api.Mapper
             CreateMap<User, UserDTO>()
        .ReverseMap();
             #endregion
-            #region Client  
-            CreateMap<Client, ClientDTO>()
-
-             .ForMember(c => c.PhoneNumber, i => i.MapFrom(src => src.Tel_m))
-             .ForMember(c => c.FaxNumber, i => i.MapFrom(src => src.Tel_f))
-
-
-      .ReverseMap();
-            CreateMap<Client, ClientInfoDTO>()
-
-             .ForMember(c => c.PhoneNumber, i => i.MapFrom(src => src.Tel_m))
-             .ForMember(c => c.FaxNumber, i => i.MapFrom(src => src.Tel_f))
+            #region Customer 
+            CreateMap<Customer, CustomerDTO>()
+               .ReverseMap();
+            CreateMap<Customer, CustomerInfoDTO>()
              .ForMember(b => b.TotalPayed, i => i.MapFrom(src => src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum()))
-
-
-
-
-      .ReverseMap();
+             .ReverseMap();
 
 
             #endregion

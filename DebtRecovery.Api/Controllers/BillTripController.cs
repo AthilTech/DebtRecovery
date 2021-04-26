@@ -15,12 +15,12 @@ namespace DebtRecovery.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Bill_TripController : ControllerBase
+    public class BillTripController : ControllerBase
     {
 
         public readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        public Bill_TripController(IMediator mediator, IMapper mapper)
+        public BillTripController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
             _mapper = mapper;
@@ -30,41 +30,41 @@ namespace DebtRecovery.Api.Controllers
 
 
         #region Standard WebMethods
-        // GET: api/bill_trip
+        // GET: api/BillTrip
         [HttpGet]
-        public IEnumerable<Bill_TripDTO> Get()
+        public IEnumerable<BillTripDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<Bill_Trip>())
-                .Result.Select(comp => _mapper.Map<Bill_TripDTO>(comp));
+            return _mediator.Send(new GetListQuery<BillTrip>())
+                .Result.Select(comp => _mapper.Map<BillTripDTO>(comp));
         }
 
 
         [HttpGet("{id}")]
-        public Bill_TripDTO Get(Guid id)
+        public BillTripDTO Get(Guid id)
         {
-            Bill_Trip bill  = _mediator.Send(new GetQuery<Bill_Trip>(condition: c => c.TripBillId == id)).Result;
-            return _mapper.Map<Bill_TripDTO>(bill);
+            BillTrip bill  = _mediator.Send(new GetQuery<BillTrip>(condition: c => c.TripBillId == id)).Result;
+            return _mapper.Map<BillTripDTO>(bill);
         }
 
 
         [HttpPost]
-        public async Task<string> Post(Bill_Trip bill)
+        public async Task<string> Post(BillTrip bill)
         {
-            return await _mediator.Send(new PostCommand<Bill_Trip>(bill));
+            return await _mediator.Send(new PostCommand<BillTrip>(bill));
         }
 
 
         [HttpPut]
-        public async Task<string> Put(Bill_Trip bill)
+        public async Task<string> Put(BillTrip bill)
         {
-            return await _mediator.Send(new PutCommand<Bill_Trip>(bill));
+            return await _mediator.Send(new PutCommand<BillTrip>(bill));
         }
 
 
         [HttpDelete]
         public async Task<string> Delete(Guid id)
         {
-            return await _mediator.Send(new DeleteCommand<Bill_Trip>(id));
+            return await _mediator.Send(new DeleteCommand<BillTrip>(id));
         }
         #endregion
 

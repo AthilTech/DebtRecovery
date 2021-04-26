@@ -6,13 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DebtRecovery.Domain.Models
 {
-    public abstract class User
+    public  class User
          
-    {   //   link for inheritence with the primary key in the parent class  https://weblogs.asp.net/manavi/inheritance-mapping-strategies-with-entity-framework-code-first-ctp5-part-3-table-per-concrete-type-tpc-and-choosing-strategy-guidelines
+    {  
+        
         public Guid UserId { get; set; }
-        public string CIN { get; set; }
-        public string LastName { get; set; }
+        public string Icn { get; set; }
         public string Name { get; set; }
+        public string LastName { get; set; }
         public string Login { get; set; } 
         public string Password { get; set; }
         public string PhoneNumber { get; set; }

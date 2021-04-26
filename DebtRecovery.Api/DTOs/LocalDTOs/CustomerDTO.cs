@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace DebtRecovery.Api.DTOs.LocalDTOs
 {
-    public class ClientDTO
+    public class CustomerDTO
     {
-        public Guid ClientId { get; set; }
+        public Guid CustomerId { get; set; }
         public string Name { get; set; }
         public string Contact { get; set; }
         public string PhoneNumber { get; set; }
@@ -17,9 +17,9 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public string Email { get; set; }
         public string CIN { get; set; }
         public string Type { get; set; }
-        public bool Litige { get; set; }
+        public bool Litigation { get; set; }
  }
-    public class ClientInfoDTO
+    public class CustomerInfoDTO
     {
         
         public string Name { get; set; }
@@ -30,7 +30,7 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public string Adress { get; set; }
         public string Email { get; set; }
         public string Type { get; set; }
-        public bool Litige { get; set; }
+        public bool Litigation { get; set; }
         //Pamet State 
         public double LatePayment { get; set; }
         public double IncomingPayment { get; set; }

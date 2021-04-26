@@ -11,7 +11,7 @@ namespace DebtRecovery.Api.HttpClientCommunications
 {
     public class TripCommunication
     {
-        HttpClient _httpClient = new HttpClient();
+        HttpClient _httpClient= new HttpClient();
         public TripDTO GetTripById(Guid? idtrip)
         {
 

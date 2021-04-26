@@ -12,7 +12,7 @@ namespace DebtRecovery.Domain.Models
         public string Media { get; set; }
         public string Model { get; set; }
         public int Order { get; set; }
-        public bool Auto { get; set; }
+        public bool IsAuto { get; set; }
 
 
         //reference properities

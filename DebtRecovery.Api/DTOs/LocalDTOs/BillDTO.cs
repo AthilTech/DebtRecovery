@@ -15,7 +15,7 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public string PaymentMethod { get; set; }
         public bool Scenario_State { get; set; }
 
-        public Guid FK_Client { get; set; }
+        public Guid FK_Customer{ get; set; }
 
     }
 }

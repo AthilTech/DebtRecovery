@@ -36,7 +36,7 @@ namespace DebtRecovery.Api.Controllers
 
         public IEnumerable<PaymentDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<Payment>(null, includes: i => i.Include(b => b.Bill).ThenInclude(b => b.Client)))
+            return _mediator.Send(new GetListQuery<Payment>(null, includes: i => i.Include(b => b.Bill).ThenInclude(b => b.Customer)))
                 .Result.Select(comp => _mapper.Map<PaymentDTO>(comp));
 
         }

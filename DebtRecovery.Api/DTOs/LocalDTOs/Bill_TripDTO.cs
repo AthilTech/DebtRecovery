@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DebtRecovery.Api.DTOs.LocalDTOs
 {
-    public class Bill_TripDTO
+    public class BillTripDTO
     {
     }
 }

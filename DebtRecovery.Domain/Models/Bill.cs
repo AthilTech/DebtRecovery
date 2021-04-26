@@ -26,10 +26,10 @@ namespace DebtRecovery.Domain.Models
 
         public ICollection<History> Histories { get; set; }
 
-        public ICollection<Bill_Trip> Bill_Trips { get; set; }
+        public ICollection<BillTrip> BillTrips { get; set; }
 
-        public Guid FK_Client { get; set; }
-        public Client Client { get; set; }
+        public Guid FK_Customer{ get; set; }
+        public Customer Customer{ get; set; }
 
 
 
