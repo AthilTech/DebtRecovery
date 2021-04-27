@@ -25,11 +25,12 @@ namespace DebtRecovery.Domain.Models
         public string AgentId { get; set; }
         public string AgentName { get; set; }
 
-        
-   
+
+
 
         //reference properities  
         //Bill 
+        public string BillNumber { get; set; }
         public Guid FK_Bill { get; set; }
         public Bill Bill { get; set; }
 

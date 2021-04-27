@@ -26,7 +26,7 @@ namespace DebtRecovery.Domain.Models
 
         //one to many with role 
 
-        public Guid FK_Role { get; set; }
+        public Guid? FK_Role { get; set; }
         public Role Role { get; set; }
 
 

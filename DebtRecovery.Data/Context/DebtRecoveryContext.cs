@@ -94,7 +94,9 @@ namespace DebtRecovery.Data.Context
             modelBuilder.Entity<Agent>()
                    .HasOne<Manager>(ra => ra.Manager)
                    .WithMany(ce => ce.Agents)
-                   .HasForeignKey(ra => ra.FK_Manager);
+                   .HasForeignKey(ra => ra.FK_Manager)
+                   .OnDelete(DeleteBehavior.ClientNoAction);
+                   ;
 
             modelBuilder.Entity<Customer>()
                    .HasOne<Agent>(ag => ag.Agent)

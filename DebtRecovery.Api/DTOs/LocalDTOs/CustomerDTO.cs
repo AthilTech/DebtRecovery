@@ -39,4 +39,11 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
 
 
     }
+
+    public class CustomerUpdateScenarioDTO
+    {
+        public Guid CustomerId { get; set; }
+
+        public Guid FK_Scenario { get; set; }
+    }
 }

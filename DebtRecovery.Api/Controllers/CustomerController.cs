@@ -84,6 +84,13 @@ namespace DebtRecovery.Api.Controllers
             return _mapper.Map<CustomerInfoDTO>(Customer);
         }
 
+        [HttpPut("assign-scenario")]
+        public async Task<string> assignScenario(CustomerUpdateScenarioDTO clientupdateScenarioDTO)
+        {
+            Customer Customer = _mediator.Send(new GetQuery<Customer>(condition: c => c.CustomerId == clientupdateScenarioDTO.CustomerId)).Result;
+            Customer.FK_Scenario = clientupdateScenarioDTO.FK_Scenario;
+            return await _mediator.Send(new PutCommand<Customer>(Customer));
+        }
 
         #endregion
 

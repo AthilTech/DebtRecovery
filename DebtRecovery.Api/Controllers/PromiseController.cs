@@ -35,7 +35,7 @@ namespace DebtRecovery.Api.Controllers
         public IEnumerable<PromiseDTO> Get()
         {
             return _mediator.Send(new GetListQuery<Promise>(
-                includes: i => i.Include(c => c.Bill).ThenInclude(c => c.Client)
+                includes: i => i.Include(c => c.Bill).ThenInclude(c => c.Customer)
                 ))
                 .Result.Select(comp => _mapper.Map<PromiseDTO>(comp));
         }
@@ -45,7 +45,7 @@ namespace DebtRecovery.Api.Controllers
         public PromiseDTO Get(Guid id)
         {
             Promise Promise = _mediator.Send(new GetQuery<Promise>(condition: c => c.PromiseId == id, 
-                includes: i => i.Include(c => c.Bill).ThenInclude(c => c.Client))).Result;
+                includes: i => i.Include(c => c.Bill).ThenInclude(c => c.Customer))).Result;
             return _mapper.Map<PromiseDTO>(Promise);
         }
 
@@ -55,8 +55,8 @@ namespace DebtRecovery.Api.Controllers
         {
             await _mediator.Send(new PostCommand<Promise>(Promise));
 
-            BillDTO billWithCustomer = _mapper.Map<BillDTO>( _mediator.Send(new GetQuery<Bill>(condition: c => c.BillId==Promise.FK_Bill,i=>i.Include(b=>b.Client))).Result);
-            History history = new History() { Activity = "Ajouter Prommesse", Client = billWithCustomer.CustomerName, Bill_Num = billWithCustomer.Number, FK_Bill = Promise.FK_Bill, Agent_Name = "Farah" };
+            BillDTO billWithCustomer = _mapper.Map<BillDTO>( _mediator.Send(new GetQuery<Bill>(condition: c => c.BillId==Promise.FK_Bill,i=>i.Include(b=>b.Customer))).Result);
+            History history = new History() { ActionLabel = "Ajouter Prommesse", CustomerName = billWithCustomer.CustomerName, BillNumber = billWithCustomer.Number, FK_Bill = Promise.FK_Bill, AgentName = "Farah" };
             _mediator.Send(new PostCommand<History>(history));
 
             return "Adeed Done";
