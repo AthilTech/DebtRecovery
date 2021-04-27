@@ -151,14 +151,14 @@ namespace DebtRecovery.Infra.Ioc
 
             #endregion
 
-            #region the testing one Bill_Trip
+            #region the testing one BillTrip
 
-            services.AddTransient<IRepository<Bill_Trip>, Repository<Bill_Trip>>();
-            services.AddTransient<IRequestHandler<PostCommand<Bill_Trip>, string>, PostHandler<Bill_Trip>>();
-            services.AddTransient<IRequestHandler<PutCommand<Bill_Trip>, string>, PutHandler<Bill_Trip>>();
-            services.AddTransient<IRequestHandler<DeleteCommand<Bill_Trip>, string>, DeleteHandler<Bill_Trip>>();
-            services.AddTransient<IRequestHandler<GetListQuery<Bill_Trip>, IEnumerable<Bill_Trip>>, GetListHandler<Bill_Trip>>();
-              services.AddTransient<IRequestHandler<GetQuery<Bill_Trip>, Bill_Trip>, GetHandler<Bill_Trip>>();
+            services.AddTransient<IRepository<BillTrip>, Repository<BillTrip>>();
+            services.AddTransient<IRequestHandler<PostCommand<BillTrip>, string>, PostHandler<BillTrip>>();
+            services.AddTransient<IRequestHandler<PutCommand<BillTrip>, string>, PutHandler<BillTrip>>();
+            services.AddTransient<IRequestHandler<DeleteCommand<BillTrip>, string>, DeleteHandler<BillTrip>>();
+            services.AddTransient<IRequestHandler<GetListQuery<BillTrip>, IEnumerable<BillTrip>>, GetListHandler<BillTrip>>();
+              services.AddTransient<IRequestHandler<GetQuery<BillTrip>, BillTrip>, GetHandler<BillTrip>>();
 
             #endregion
         }

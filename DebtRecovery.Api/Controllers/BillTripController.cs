@@ -42,7 +42,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public BillTripDTO Get(Guid id)
         {
-            BillTrip bill  = _mediator.Send(new GetQuery<BillTrip>(condition: c => c.TripBillId == id)).Result;
+            BillTrip bill  = _mediator.Send(new GetQuery<BillTrip>(condition: c => c.BillTripId == id)).Result;
             return _mapper.Map<BillTripDTO>(bill);
         }
 

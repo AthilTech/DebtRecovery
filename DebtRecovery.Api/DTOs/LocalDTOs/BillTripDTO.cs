@@ -7,5 +7,8 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
 {
     public class BillTripDTO
     {
+        public Guid BillTripId { get; set; }
+        public Guid FK_Trip { get; set; }
+        public Guid FK_Bill { get; set; }
     }
 }

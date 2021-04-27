@@ -14,7 +14,7 @@ namespace CounterManagement.Api.HTTPClientCommunication
         public SubsidiaryDTO GetSubsidiaryById(Guid? idsubsidiary)
         {
 
-            HttpResponseMessage response = _httpClient.GetAsync("http://localhost:56354/api/Trip/ + idsubsidiary).Result;
+            HttpResponseMessage response = _httpClient.GetAsync("http://localhost:56354/api/Trip/ + idsubsidiary").Result;
             response.EnsureSuccessStatusCode();
             var responseBody = response.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<SubsidiaryDTO>(responseBody);

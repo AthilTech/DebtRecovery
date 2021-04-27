@@ -69,24 +69,20 @@ namespace DebtRecovery.Api.Controllers
         #endregion
 
         #region Custom Web Methods 
-        [HttpGet("GetLitigation")]
+        [HttpGet("in-litigation")]
         public IEnumerable<CustomerDTO> GetLitigation()
         {
             return _mediator.Send(new GetListQuery<Customer>(condition: c => c.Litigation))
                 .Result.Select(comp => _mapper.Map<CustomerDTO>(comp));
 
-           
         }
-        [HttpGet("getCustomerInfo")]
+        [HttpGet("customer-info")]
         public CustomerInfoDTO getCustomerInfo(Guid id)
         {
             Customer Customer= _mediator.Send(new GetQuery<Customer>(condition: c => c.CustomerId == id,
                 includes: i => i.Include(c => c.Bills).ThenInclude(b=>b.Payments))).Result;
             return _mapper.Map<CustomerInfoDTO>(Customer);
         }
-
-
-
 
 
         #endregion

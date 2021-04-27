@@ -26,7 +26,7 @@ namespace DebtRecovery.Api.Mapper
 
              .ReverseMap();
 
-            CreateMap<Bill_Trip, Bill_TripDTO>()
+            CreateMap<BillTrip, BillTripDTO>()
             .ForMember(c => c.FK_Bill, i => i.MapFrom(src => src.Bill.BillId))
             .ForMember(d => d.FK_Trip, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).TripId))
 

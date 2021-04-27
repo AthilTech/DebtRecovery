@@ -51,7 +51,7 @@ namespace DebtRecovery.Data.Context
             .HasKey(b => b.BillId);
 
             modelBuilder.Entity<BillTrip>()
-                .HasKey(bt => bt.TripBillId);
+                .HasKey(bt => bt.BillTripId);
 
             modelBuilder.Entity<Payment>()
             .HasKey(pa => pa.PaymentId);

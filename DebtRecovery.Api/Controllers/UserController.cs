@@ -24,7 +24,6 @@ namespace DebtRecovery.Api.Controllers
         {
             _mediator = mediator;
             _mapper = mapper;
-
         }
 
         #region Standard WebMethods

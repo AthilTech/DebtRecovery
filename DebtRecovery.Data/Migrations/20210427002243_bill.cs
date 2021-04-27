@@ -8,46 +8,46 @@ namespace DebtRecovery.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropPrimaryKey(
-                name: "PK_Bill_Trips",
-                table: "Bill_Trips");
+                name: "PK_BillTrips",
+                table: "BillTrips");
 
             migrationBuilder.DropColumn(
-                name: "TripBillId",
-                table: "Bill_Trips");
+                name: "BillTripId",
+                table: "BillTrips");
 
             migrationBuilder.AddColumn<Guid>(
-                name: "Bill_TripId",
-                table: "Bill_Trips",
+                name: "BillTripId",
+                table: "BillTrips",
                 nullable: false,
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_Bill_Trips",
-                table: "Bill_Trips",
-                column: "Bill_TripId");
+                name: "PK_BillTrips",
+                table: "BillTrips",
+                column: "BillTripId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropPrimaryKey(
-                name: "PK_Bill_Trips",
-                table: "Bill_Trips");
+                name: "PK_BillTrips",
+                table: "BillTrips");
 
             migrationBuilder.DropColumn(
-                name: "Bill_TripId",
-                table: "Bill_Trips");
+                name: "BillTripId",
+                table: "BillTrips");
 
             migrationBuilder.AddColumn<Guid>(
-                name: "TripBillId",
-                table: "Bill_Trips",
+                name: "BillTripId",
+                table: "BillTrips",
                 type: "uniqueidentifier",
                 nullable: false,
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.AddPrimaryKey(
-                name: "PK_Bill_Trips",
-                table: "Bill_Trips",
-                column: "TripBillId");
+                name: "PK_BillTrips",
+                table: "BillTrips",
+                column: "BillTripId");
         }
     }
 }

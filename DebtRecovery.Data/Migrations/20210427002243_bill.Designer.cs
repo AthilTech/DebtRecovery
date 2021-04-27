@@ -89,9 +89,9 @@ namespace DebtRecovery.Data.Migrations
                     b.ToTable("Bills");
                 });
 
-            modelBuilder.Entity("DebtRecovery.Domain.Models.Bill_Trip", b =>
+            modelBuilder.Entity("DebtRecovery.Domain.Models.BillTrip", b =>
                 {
-                    b.Property<Guid>("Bill_TripId")
+                    b.Property<Guid>("BillTripId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -101,11 +101,11 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<Guid>("FK_Trip")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Bill_TripId");
+                    b.HasKey("BillTripId");
 
                     b.HasIndex("FK_Bill");
 
-                    b.ToTable("Bill_Trips");
+                    b.ToTable("BillTrips");
                 });
 
             modelBuilder.Entity("DebtRecovery.Domain.Models.Client", b =>
@@ -385,10 +385,10 @@ namespace DebtRecovery.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DebtRecovery.Domain.Models.Bill_Trip", b =>
+            modelBuilder.Entity("DebtRecovery.Domain.Models.BillTrip", b =>
                 {
                     b.HasOne("DebtRecovery.Domain.Models.Bill", "Bill")
-                        .WithMany("Bill_Trips")
+                        .WithMany("BillTrips")
                         .HasForeignKey("FK_Bill")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
