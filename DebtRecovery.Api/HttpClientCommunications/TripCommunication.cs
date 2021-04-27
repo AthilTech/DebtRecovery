@@ -15,7 +15,7 @@ namespace DebtRecovery.Api.HttpClientCommunications
         public TripDTO GetTripById(Guid? idtrip)
         {
 
-            HttpResponseMessage response = _httpClient.GetAsync("" + idtrip).Result;
+            HttpResponseMessage response = _httpClient.GetAsync("http://localhost:56354/api/Trip/" + idtrip).Result;
             response.EnsureSuccessStatusCode();
             var responseBody = response.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<TripDTO>(responseBody);
@@ -26,7 +26,7 @@ namespace DebtRecovery.Api.HttpClientCommunications
         public TripDTO GetAllTrips()
         {
 
-            HttpResponseMessage response = _httpClient.GetAsync("").Result;
+            HttpResponseMessage response = _httpClient.GetAsync("http://localhost:56354/api/Trip").Result;
             response.EnsureSuccessStatusCode();
             var responseBody = response.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<TripDTO>(responseBody);

@@ -14,10 +14,14 @@ namespace DebtRecovery.Domain.Models
         public string LastName { get; set; }
         public string Name { get; set; }
         public string Login { get; set; } 
-        public string Password { get; set; }
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
         public string Email { get; set; }
+        //subsidiary 
+        #region Subsidiary
+        public Guid? FK_Subsidiary { get; set; }
+
+        #endregion
 
         //one to many with role 
 

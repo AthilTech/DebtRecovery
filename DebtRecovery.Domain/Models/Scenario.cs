@@ -6,8 +6,10 @@ namespace DebtRecovery.Domain.Models
 {
     public class Scenario
     {
-        public Guid ScenarioId { get; set; }
+        public Guid ScenarioId { get; set; } 
+        public string Title { get; set; }
         public string Type { get; set; }
+        public string Desciption { get; set; }
 
         public ICollection<Activity> Activities { get; set; }
         public ICollection<Client> Clients { get; set; }
