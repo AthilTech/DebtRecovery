@@ -8,6 +8,7 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
     public class RoleDTO
     {
         public Guid RoleId { get; set; }
-        public string Label { get; set; }
+        public String Label{ get; set; }
+      
     }
 }

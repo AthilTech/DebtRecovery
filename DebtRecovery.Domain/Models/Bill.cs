@@ -31,13 +31,5 @@ namespace DebtRecovery.Domain.Models
         public Guid FK_Customer{ get; set; }
         public Customer Customer{ get; set; }
 
-
-
-
-
-
-
-
-
     }
 }

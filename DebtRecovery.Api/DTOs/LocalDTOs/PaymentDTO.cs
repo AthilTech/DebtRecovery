@@ -18,4 +18,9 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public List<PaymentDTO> Payments { get; set; }
         public double Sum { get; set; }
     }
+    public class PaymentsWithSum
+    {
+        public double PaymentSum { get; set; }
+        public List<PaymentDTO> Payments { get; set; }
+    }
 }

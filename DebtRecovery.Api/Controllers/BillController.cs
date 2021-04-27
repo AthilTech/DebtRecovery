@@ -74,6 +74,15 @@ namespace DebtRecovery.Api.Controllers
 
         #region Custom Web Methods
 
+        [HttpGet("GetBillbycostumerId")]
+        public async Task<IEnumerable<BillDTO>> GetBillbycostumerId(Guid ClientId)
+        {
+            return _mediator.Send(new GetListQuery<Bill>(condition: c => c.FK_Client == ClientId, includes: i => i.Include(e => e.Client)))
+              .Result.Select(bill => _mapper.Map<BillDTO>(bill));
+        }
+
+
+
         #endregion
 
     }

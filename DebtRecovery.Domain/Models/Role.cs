@@ -9,7 +9,8 @@ namespace DebtRecovery.Domain.Models
 
         //scalar properities
         public Guid RoleId { get; set; }
-        public string Label { get; set; }
+        public String Label { get; set; }
+       
 
     //one-to-many with user 
     public ICollection<User> Users { get; set; }
