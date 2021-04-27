@@ -7,7 +7,7 @@ namespace DebtRecovery.Domain.Models
 {
   public  class BillTrip 
 
-    {   public Guid TripBillId { get; set; }
+    {   public Guid Bill_TripId { get; set; }
         public Guid FK_Trip { get; set; }
         public Guid FK_Bill { get; set; }
         public Bill Bill { get; set; }

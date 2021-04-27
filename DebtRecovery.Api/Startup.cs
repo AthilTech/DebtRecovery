@@ -83,7 +83,7 @@ namespace DebtRecovery.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c =>
                 {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Energie Monitoring V1");
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Decbt Recovery V1");
                 });
 
             }
