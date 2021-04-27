@@ -16,5 +16,8 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public string PaymentMethod { get; set; }
         public bool Scenario_State { get; set; }
 
+        //customer 
+        public string CustomerName { get; set; }
     }
+
 }
