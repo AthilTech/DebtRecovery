@@ -10,6 +10,8 @@ namespace CounterManagement.Domain.ForeignDTO
         public string SubsidiaryCode { get; set; }
         public string Label { get; set; }
         public string Logo { get; set; }
-     
+        public string MFG_Code { get; set; }
+        public string MFG_Label { get; set; }
+
     }
 }
