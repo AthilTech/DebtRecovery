@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DebtRecovery.Data.Migrations
 {
-    public partial class v1 : Migration
+    public partial class firstone : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

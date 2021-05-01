@@ -17,6 +17,8 @@ namespace DebtRecovery.Api.Mapper
     public class MappingProfiles : Profile
     {
         TripCommunication TripCommunication = new TripCommunication();
+        SubsidiaryCommunication subsidiaryCommunication = new SubsidiaryCommunication();
+
         public MappingProfiles()
         {
             #region Bill 
@@ -25,10 +27,15 @@ namespace DebtRecovery.Api.Mapper
             .ForMember(c => c.FK_Customer, i => i.MapFrom(src => src.Customer.CustomerId))
 
              .ReverseMap();
+               
 
-            CreateMap<BillTrip, BillTripDTO>()
-            .ForMember(c => c.FK_Bill, i => i.MapFrom(src => src.Bill.BillId))
-            .ForMember(d => d.FK_Trip, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).TripId))
+
+        CreateMap<BillTrip, BillTripDTO>()
+            .ForMember(c => c.FK_Bill, i => i.MapFrom(src => src.Bill.BillId)) 
+            .ForMember(d => d.FK_Trip, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).TripId)) 
+            .ForMember(d => d.Number, i => i.MapFrom(src => src.Bill.Number))
+            .ForMember(d => d.Date, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).Date))
+
 
              .ReverseMap();
             #endregion
@@ -88,11 +95,13 @@ namespace DebtRecovery.Api.Mapper
        .ReverseMap();
             #endregion
             #region User 
-
+           
             CreateMap<User, UserDTO>()
-       .ReverseMap();
+            .ForMember(d => d.FK_Subsidiary, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryId))
+             .ForMember(f => f.SubsidiaryCode, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryCode))
+            .ReverseMap();
             #endregion
-            
+
             #region Customer 
             CreateMap<Customer, CustomerDTO>()
                .ReverseMap();

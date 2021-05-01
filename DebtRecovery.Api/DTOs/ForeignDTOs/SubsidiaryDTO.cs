@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace CounterManagement.Domain.ForeignDTO
+
+namespace DebtRecovery.Api.DTOs.ForeignDTOs
 {
    public class SubsidiaryDTO
     {

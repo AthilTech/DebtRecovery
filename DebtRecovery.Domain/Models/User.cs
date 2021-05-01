@@ -22,6 +22,7 @@ namespace DebtRecovery.Domain.Models
         #region Subsidiary
         public Guid? FK_Subsidiary { get; set; }
 
+
         #endregion
 
         //one to many with role 

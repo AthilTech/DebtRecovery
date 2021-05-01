@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    [Migration("20210427130027_v1")]
-    partial class v1
+    [Migration("20210501000839_wohhh")]
+    partial class wohhh
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,6 +60,9 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<Guid>("BillId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("AmountToPay")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -126,7 +129,7 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<Guid?>("FK_Agent")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FK_Scenario")
+                    b.Property<Guid?>("FK_Scenario")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FaxNumber")
@@ -402,9 +405,7 @@ namespace DebtRecovery.Data.Migrations
 
                     b.HasOne("DebtRecovery.Domain.Models.Scenario", "Scenario")
                         .WithMany("Customers")
-                        .HasForeignKey("FK_Scenario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FK_Scenario");
                 });
 
             modelBuilder.Entity("DebtRecovery.Domain.Models.History", b =>

@@ -4,14 +4,16 @@ using DebtRecovery.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    partial class DebtRecoveryContextModelSnapshot : ModelSnapshot
+    [Migration("20210427133807_firstone")]
+    partial class firstone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +60,6 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<Guid>("BillId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<double>("AmountToPay")
-                        .HasColumnType("float");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
@@ -127,7 +126,7 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<Guid?>("FK_Agent")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("FK_Scenario")
+                    b.Property<Guid>("FK_Scenario")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FaxNumber")
@@ -403,7 +402,9 @@ namespace DebtRecovery.Data.Migrations
 
                     b.HasOne("DebtRecovery.Domain.Models.Scenario", "Scenario")
                         .WithMany("Customers")
-                        .HasForeignKey("FK_Scenario");
+                        .HasForeignKey("FK_Scenario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DebtRecovery.Domain.Models.History", b =>

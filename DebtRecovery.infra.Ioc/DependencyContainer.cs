@@ -151,7 +151,7 @@ namespace DebtRecovery.Infra.Ioc
 
             #endregion
 
-            #region the testing one BillTrip
+            #region BillTrip
 
             services.AddTransient<IRepository<BillTrip>, Repository<BillTrip>>();
             services.AddTransient<IRequestHandler<PostCommand<BillTrip>, string>, PostHandler<BillTrip>>();
