@@ -138,7 +138,8 @@ namespace DebtRecovery.Data.Context
             modelBuilder.Entity<Customer>()
             .HasOne<Scenario>(sc => sc.Scenario)
             .WithMany(cl => cl.Customers)
-            .HasForeignKey(sc => sc.FK_Scenario);
+            .HasForeignKey(sc => sc.FK_Scenario)
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
 
 

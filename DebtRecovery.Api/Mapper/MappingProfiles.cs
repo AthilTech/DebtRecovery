@@ -45,7 +45,7 @@ namespace DebtRecovery.Api.Mapper
             #region Promise 
 
             CreateMap<Promise, PromiseDTO>()
-               .ForMember(d=>d.CustomerName,i=>i.MapFrom(src=>src.Bill.Customer.Name))
+               .ForMember(d => d.CustomerName, i => i.MapFrom(src => src.Bill.Customer.Name))
                  .ForMember(d => d.BillNumber, i => i.MapFrom(src => src.Bill.Number.ToString()))
                  .ReverseMap();
             #endregion
@@ -55,7 +55,7 @@ namespace DebtRecovery.Api.Mapper
 
        .ReverseMap();
 
-           
+
             #endregion
             #region Role 
 
@@ -65,7 +65,8 @@ namespace DebtRecovery.Api.Mapper
             #region Scenario 
 
             CreateMap<Scenario, ScenarioDTO>()
-       .ReverseMap();
+                .ForMember(d => d.ActivitiesCount, i => i.MapFrom(src => src.Activities.Count))
+                .ReverseMap();
             #endregion
             #region Note 
 
@@ -92,9 +93,9 @@ namespace DebtRecovery.Api.Mapper
             CreateMap<User, UserDTO>()
        .ReverseMap();
             #endregion
-            
             #region Customer 
             CreateMap<Customer, CustomerDTO>()
+                .ForMember(d => d.CustomerAbreviation, i => i.MapFrom(src => src.Name.Trim()[0].ToString() + src.Name[src.Name.IndexOf(' ') + 1].ToString()))
                .ReverseMap();
             CreateMap<Customer, CustomerInfoDTO>()
              .ForMember(b => b.TotalPayed, i => i.MapFrom(src => src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum()))

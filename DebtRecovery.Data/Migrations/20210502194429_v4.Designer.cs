@@ -4,14 +4,16 @@ using DebtRecovery.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    partial class DebtRecoveryContextModelSnapshot : ModelSnapshot
+    [Migration("20210502194429_v4")]
+    partial class v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,9 +53,6 @@ namespace DebtRecovery.Data.Migrations
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isActive")
-                        .HasColumnType("bit");
 
                     b.HasKey("ActivityId");
 
@@ -121,7 +120,7 @@ namespace DebtRecovery.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Adress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Contact")
@@ -137,9 +136,6 @@ namespace DebtRecovery.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FaxNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LegalIdentifier")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Litigation")
@@ -410,6 +406,7 @@ namespace DebtRecovery.Data.Migrations
                     b.HasOne("DebtRecovery.Domain.Models.Scenario", "Scenario")
                         .WithMany("Customers")
                         .HasForeignKey("FK_Scenario")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

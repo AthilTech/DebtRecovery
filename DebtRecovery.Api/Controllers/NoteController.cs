@@ -59,7 +59,7 @@ namespace DebtRecovery.Api.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<string> Delete(Guid id)
         {
             return await _mediator.Send(new DeleteCommand<Note>(id));

@@ -65,7 +65,7 @@ namespace DebtRecovery.Api.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<string> Delete(Guid id)
         {
             return await _mediator.Send(new DeleteCommand<Bill>(id));
@@ -74,10 +74,10 @@ namespace DebtRecovery.Api.Controllers
 
         #region Custom Web Methods
 
-        [HttpGet("bills-by-custumer-id")]
-        public async Task<IEnumerable<BillDTO>> GetBillbycostumerId(Guid CustomerId)
+        [HttpGet("bills-by-customer-id")]
+        public async Task<IEnumerable<BillDTO>> GetBillbycostumerId(Guid customerId)
         {
-            return _mediator.Send(new GetListQuery<Bill>(condition: c => c.FK_Customer == CustomerId, includes: i => i.Include(e => e.Customer)))
+            return _mediator.Send(new GetListQuery<Bill>(condition: c => c.FK_Customer == customerId, includes: i => i.Include(e => e.Customer)))
               .Result.Select(bill => _mapper.Map<BillDTO>(bill));
         }
 
