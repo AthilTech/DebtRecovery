@@ -37,6 +37,41 @@ namespace DebtRecovery.Data.Context
         {
             #region DataSeed:
 
+            //Roles
+            modelBuilder.Entity<Role>().HasData(
+                                new Role() { RoleId = new Guid("4D2BC0D0-F738-4BA5-B48B-C2DB92B0BCF1"), Label = "Admin" },
+                                new Role() { RoleId = new Guid("45E6A625-BA74-437B-8956-5316915202AC"), Label = "Admin" });
+
+            //Managers
+            modelBuilder.Entity<Manager>().HasData(
+                    new Manager() { UserId = new Guid("14FA108F-986C-44CA-968C-92DE280A4F05"), Name = "Athil",LastName="Belhadj",PhoneNumber="23040785",Email= "Athil Belhadj/SIEGE/POULINA" },
+                    new Manager() { UserId = new Guid("8BECB2C9-1F49-4780-9382-C5D434BE11FB"), Name = "Achref", LastName = "Souissi", PhoneNumber = "92365587", Email = "Achref Souissi/SIEGE/POULINA" });
+
+            //Agents
+            modelBuilder.Entity<Agent>().HasData(
+                    new Agent() { UserId = new Guid("FB2B536C-B4CB-485E-B65F-30679CF0410B"), Name = "Rami", LastName = "Toumi", PhoneNumber = "33256698", Email = "Rami Toumi/SIEGE/POULINA",FK_Manager=new Guid("8BECB2C9-1F49-4780-9382-C5D434BE11FB") },
+                    new Agent() { UserId = new Guid("4B437FAF-71A2-47D3-AC14-4088F6A37204"), Name = "Safouane", LastName = "Ben jeddi", PhoneNumber = "982544567", Email = "Safouane Ben Jeddi/SIEGE/POULINA", FK_Manager = new Guid("8BECB2C9-1F49-4780-9382-C5D434BE11FB") });
+
+            //scenarios
+            modelBuilder.Entity<Scenario>().HasData(
+                new Scenario() { ScenarioId=new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3"), ScenarioLabel= "Standard avec une seule Rélance",IsActive=true,IsCentralized=true}
+                );
+
+            //activities
+            modelBuilder.Entity<Activity>().HasData(
+               
+                new Activity() { ActivityId=new Guid("E0F36A4F-7044-46E7-90B1-923D0737544E"),ActivityLabel="Prévenance",Type= "thoughtfulness", isActive=true ,BeforeDays=5,AfterDays=0,Media="email",Order=0,Model= "model 1",IsAuto=true,FK_Scenario=new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") },
+                new Activity() { ActivityId = new Guid("4F4D26BF-E2CF-4D52-8F2B-182B6DC71638"), ActivityLabel = "Rélance n°1", Type = "relaunch", isActive = true, BeforeDays = 0, AfterDays = 3, Media = "email", Order = 0, Model = "model 2", IsAuto = true, FK_Scenario = new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") },
+                new Activity() { ActivityId = new Guid("{264E6890-90D2-423E-B795-607499E31A3F}"), ActivityLabel = "Rémerciement", Type = "thanks", isActive = true, BeforeDays = 0, AfterDays = 5, Media = "email", Order = 0, Model = "model 3", IsAuto = true, FK_Scenario = new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") }
+
+
+                );
+          //customers
+          modelBuilder.Entity<Customer>().HasData(
+        new Customer() { CustomerId = new Guid("A2730FA7-D7E0-40F0-BB5F-75092D8C5583"), Name = "Magazain Generale", Contact = "Sfaxi Arij", PhoneNumber = "71256587",FaxNumber="70861236",Litigation=false, Email = "Mg@tunis.com.tn",FK_Agent=new Guid("FB2B536C-B4CB-485E-B65F-30679CF0410B") ,FK_Scenario=new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") },
+        new Customer() { CustomerId = new Guid("{17F50CF3-3BAA-490E-8716-06C4921F9AFE}"), Name = "PV Mazraa sidi Thabet", Contact = "Ouni Ramzi", PhoneNumber = "23256587", FaxNumber = "70256354", Litigation = false, Email = "thabet25@gmail.com", FK_Agent = new Guid("FB2B536C-B4CB-485E-B65F-30679CF0410B"), FK_Scenario = new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") }
+     );
+
             #endregion
 
             #region Settings: set Primary keys

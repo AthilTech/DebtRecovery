@@ -41,7 +41,6 @@ namespace DebtRecovery.Data.Migrations
                     Icn = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Login = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     Adress = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
@@ -71,12 +70,15 @@ namespace DebtRecovery.Data.Migrations
                 columns: table => new
                 {
                     ActivityId = table.Column<Guid>(nullable: false),
+                    ActivityLabel = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
-                    Date = table.Column<DateTime>(nullable: false),
                     Media = table.Column<string>(nullable: true),
                     Model = table.Column<string>(nullable: true),
                     Order = table.Column<int>(nullable: false),
                     IsAuto = table.Column<bool>(nullable: false),
+                    isActive = table.Column<bool>(nullable: false),
+                    BeforeDays = table.Column<int>(nullable: false),
+                    AfterDays = table.Column<int>(nullable: false),
                     FK_Scenario = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
@@ -95,12 +97,13 @@ namespace DebtRecovery.Data.Migrations
                 columns: table => new
                 {
                     CustomerId = table.Column<Guid>(nullable: false),
+                    LegalIdentifier = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Contact = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     FaxNumber = table.Column<string>(nullable: true),
                     Profile = table.Column<string>(nullable: true),
-                    Adress = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Litigation = table.Column<bool>(nullable: false),
                     FK_Agent = table.Column<Guid>(nullable: true),
@@ -120,7 +123,7 @@ namespace DebtRecovery.Data.Migrations
                         column: x => x.FK_Scenario,
                         principalTable: "Scenarios",
                         principalColumn: "ScenarioId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -254,6 +257,58 @@ namespace DebtRecovery.Data.Migrations
                         principalColumn: "BillId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "RoleId", "Label" },
+                values: new object[,]
+                {
+                    { new Guid("4d2bc0d0-f738-4ba5-b48b-c2db92b0bcf1"), "Admin" },
+                    { new Guid("45e6a625-ba74-437b-8956-5316915202ac"), "Admin" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Scenarios",
+                columns: new[] { "ScenarioId", "IsActive", "IsCentralized", "ScenarioLabel" },
+                values: new object[] { new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), true, true, "Standard avec une seule Rélance" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "Adress", "Discriminator", "Email", "FK_Role", "FK_Subsidiary", "Icn", "LastName", "Name", "PhoneNumber" },
+                values: new object[,]
+                {
+                    { new Guid("14fa108f-986c-44ca-968c-92de280a4f05"), null, "Manager", "Athil Belhadj/SIEGE/POULINA", null, null, null, "Belhadj", "Athil", "23040785" },
+                    { new Guid("8becb2c9-1f49-4780-9382-c5d434be11fb"), null, "Manager", "Achref Souissi/SIEGE/POULINA", null, null, null, "Souissi", "Achref", "92365587" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Activities",
+                columns: new[] { "ActivityId", "ActivityLabel", "AfterDays", "BeforeDays", "FK_Scenario", "IsAuto", "Media", "Model", "Order", "Type", "isActive" },
+                values: new object[,]
+                {
+                    { new Guid("e0f36a4f-7044-46e7-90b1-923d0737544e"), "Prévenance", 0, 5, new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), true, "email", "model 1", 0, "thoughtfulness", true },
+                    { new Guid("4f4d26bf-e2cf-4d52-8f2b-182b6dc71638"), "Rélance n°1", 3, 0, new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), true, "email", "model 2", 0, "relaunch", true },
+                    { new Guid("264e6890-90d2-423e-b795-607499e31a3f"), "Rémerciement", 5, 0, new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), true, "email", "model 3", 0, "thanks", true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "UserId", "Adress", "Discriminator", "Email", "FK_Role", "FK_Subsidiary", "Icn", "LastName", "Name", "PhoneNumber", "FK_Manager" },
+                values: new object[,]
+                {
+                    { new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"), null, "Agent", "Rami Toumi/SIEGE/POULINA", null, null, null, "Toumi", "Rami", "33256698", new Guid("8becb2c9-1f49-4780-9382-c5d434be11fb") },
+                    { new Guid("4b437faf-71a2-47d3-ac14-4088f6a37204"), null, "Agent", "Safouane Ben Jeddi/SIEGE/POULINA", null, null, null, "Ben jeddi", "Safouane", "982544567", new Guid("8becb2c9-1f49-4780-9382-c5d434be11fb") }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "CustomerId", "Address", "Contact", "Email", "FK_Agent", "FK_Scenario", "FaxNumber", "LegalIdentifier", "Litigation", "Name", "PhoneNumber", "Profile" },
+                values: new object[] { new Guid("a2730fa7-d7e0-40f0-bb5f-75092d8c5583"), null, "Sfaxi Arij", "Mg@tunis.com.tn", new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"), new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), "70861236", null, false, "Magazain Generale", "71256587", null });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "CustomerId", "Address", "Contact", "Email", "FK_Agent", "FK_Scenario", "FaxNumber", "LegalIdentifier", "Litigation", "Name", "PhoneNumber", "Profile" },
+                values: new object[] { new Guid("17f50cf3-3baa-490e-8716-06c4921f9afe"), null, "Ouni Ramzi", "thabet25@gmail.com", new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"), new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), "70256354", null, false, "PV Mazraa sidi Thabet", "23256587", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Activities_FK_Scenario",
