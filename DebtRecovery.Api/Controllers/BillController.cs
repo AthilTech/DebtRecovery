@@ -34,10 +34,10 @@ namespace DebtRecovery.Api.Controllers
         // GET: api/Bill
         [HttpGet]
 
-        public IEnumerable<PaymentDTO> Get()
+        public IEnumerable<BillDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<Payment>(null, includes: i => i.Include(b => b.Bill).ThenInclude(b => b.Customer)))
-                .Result.Select(comp => _mapper.Map<PaymentDTO>(comp));
+            return _mediator.Send(new GetListQuery<Bill>())
+                .Result.Select(comp => _mapper.Map<BillDTO>(comp));
 
         }
 
@@ -75,9 +75,9 @@ namespace DebtRecovery.Api.Controllers
         #region Custom Web Methods
 
         [HttpGet("bills-by-custumer-id")]
-        public async Task<IEnumerable<BillDTO>> GetBillbycostumerId(Guid CustomerId)
+        public async Task<IEnumerable<BillDTO>> GetBillbByCustomerId(Guid CustomerId)
         {
-            return _mediator.Send(new GetListQuery<Bill>(condition: c => c.FK_Customer == CustomerId, includes: i => i.Include(e => e.Customer)))
+            return  _mediator.Send(new GetListQuery<Bill>(condition: c => c.FK_Customer == CustomerId, includes: i => i.Include(e => e.Customer)))
               .Result.Select(bill => _mapper.Map<BillDTO>(bill));
         }
 

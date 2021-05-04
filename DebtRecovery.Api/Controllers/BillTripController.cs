@@ -43,7 +43,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public BillTripDTO Get(Guid id)
         {
-            BillTrip bill  = _mediator.Send(new GetQuery<BillTrip>(condition: c => c.BillTripId == id,includes: i => i.Bill)).Result;
+            BillTrip bill  = _mediator.Send(new GetQuery<BillTrip>(condition: c => c.BillTripId == id)).Result;
             return _mapper.Map<BillTripDTO>(bill);
         }
 
@@ -69,6 +69,21 @@ namespace DebtRecovery.Api.Controllers
         }
         #endregion
 
+        #region Custom Web Methods 
+        #region Custom Web Methods
+
+
+        #endregion
+        [HttpGet("trip-info")]
+
+        public IEnumerable<TripInfoDTO> GetTripInfo()
+        {
+            return _mediator.Send(new GetListQuery<BillTrip>(includes: i => i.Include(b => b.Bill).ThenInclude(c => c.Customer)))
+                .Result.Select(comp => _mapper.Map<TripInfoDTO>(comp));
+        }
+
+
+        #endregion
 
 
 

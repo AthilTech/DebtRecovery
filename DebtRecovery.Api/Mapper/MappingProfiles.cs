@@ -33,11 +33,28 @@ namespace DebtRecovery.Api.Mapper
         CreateMap<BillTrip, BillTripDTO>()
             .ForMember(c => c.FK_Bill, i => i.MapFrom(src => src.Bill.BillId)) 
             .ForMember(d => d.FK_Trip, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).TripId)) 
-            .ForMember(d => d.Number, i => i.MapFrom(src => src.Bill.Number))
-            .ForMember(d => d.Date, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).Date))
+            .ReverseMap();
+
+            CreateMap<BillTrip, TripInfoDTO>()
+                //trip
+                
+                .ForMember(d => d.FK_Trip, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).TripId))
+                .ForMember(d => d.Date, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).Date))
+                .ForMember(d => d.Location, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).Location))
+                .ForMember(d => d.Plannified, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).plannified))
+                .ForMember(d => d.Description, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).Description))
+                //bill
+                .ForMember(c => c.FK_Bill, i => i.MapFrom(src => src.Bill.BillId))
+                .ForMember(c => c.BillNumber, i => i.MapFrom(src => src.Bill.Number))
+                //customer
+                .ForMember(c => c.FK_Customer, i => i.MapFrom(src => src.Bill.Customer.CustomerId))
+                .ForMember(c => c.CustomerName, i => i.MapFrom(src => src.Bill.Customer.Name))
 
 
-             .ReverseMap();
+
+
+
+                 .ReverseMap();
             #endregion
             #region RecoveryAgent 
 
@@ -56,9 +73,15 @@ namespace DebtRecovery.Api.Mapper
                  .ForMember(d => d.BillNumber, i => i.MapFrom(src => src.Bill.Number.ToString()))
                  .ReverseMap();
             #endregion
-            #region Payment 
+            #region Payment  
 
             CreateMap<Payment, PaymentDTO>()
+                .ForMember(c =>c.FK_Bill, i=> i.MapFrom(src => src.Bill.BillId))
+                .ForMember(c => c.BillNumber, i => i.MapFrom(src => src.Bill.Number))
+                .ForMember(c => c.FK_Customer, i => i.MapFrom(src => src.Bill.Customer.CustomerId))
+                .ForMember(c => c.CustomerName, i => i.MapFrom(src => src.Bill.Customer.Name))
+
+
 
        .ReverseMap();
 
