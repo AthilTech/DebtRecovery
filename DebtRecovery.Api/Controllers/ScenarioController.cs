@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DebtRecovery.Api.DTOs.LocalDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -34,7 +35,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet]
         public IEnumerable<ScenarioDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<Scenario>())
+            return _mediator.Send(new GetListQuery<Scenario>(includes:i=>i.Include(x=>x.Activities)))
                 .Result.Select(comp => _mapper.Map<ScenarioDTO>(comp));
         }
 
@@ -50,6 +51,21 @@ namespace DebtRecovery.Api.Controllers
         [HttpPost]
         public async Task<string> Post(Scenario Scenario)
         {
+            foreach (var activity in Scenario.Activities)
+            {
+                switch (activity.Type)
+                {
+                    case "relaunch":
+                        activity.ActivityLabel = "Rélance n°" + activity.Order;
+                        break;
+                    case "thoughtfulness":
+                        activity.ActivityLabel = "Prévenance";
+                        break;
+                    case "thanks":
+                        activity.ActivityLabel = "Rémerciement";
+                        break;
+                }
+            }
             return await _mediator.Send(new PostCommand<Scenario>(Scenario));
         }
 
@@ -61,7 +77,7 @@ namespace DebtRecovery.Api.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<string> Delete(Guid id)
         {
             return await _mediator.Send(new DeleteCommand<Scenario>(id));

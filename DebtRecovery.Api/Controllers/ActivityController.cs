@@ -61,7 +61,7 @@ namespace DebtRecovery.Api.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<string> Delete(Guid id)
         {
             return await _mediator.Send(new DeleteCommand<Activity>(id));
@@ -69,7 +69,12 @@ namespace DebtRecovery.Api.Controllers
         #endregion
 
         #region Custom Web Methods
-
+        [HttpGet("activities-by-Scenario-id")]
+        public List<ActivityDTO> GetActivitiesByScenarioId(Guid scenarioId)
+        {
+            return _mediator.Send(new GetListQuery<Activity>(condition: c => c.FK_Scenario == scenarioId)).Result.Select(a => _mapper.Map<ActivityDTO>(a)).ToList();
+        
+        }
 
         #endregion
 
