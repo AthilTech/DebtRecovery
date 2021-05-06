@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    [Migration("20210504101150_v1")]
+    [Migration("20210504120418_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

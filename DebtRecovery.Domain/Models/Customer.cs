@@ -34,8 +34,6 @@ namespace DebtRecovery.Domain.Models
 
 
 
-
-
     }
 }
 

@@ -81,6 +81,12 @@ namespace DebtRecovery.Api.Mapper
             #region History 
 
             CreateMap<History, HistoryDTO>()
+                .ForMember(d => d.Activity, i=>i.MapFrom(src => src.ActionLabel))
+                .ForMember(d =>d.Agent_Name,i=>i.MapFrom(src =>src.AgentName))
+                .ForMember(d=> d.Customer, i=>i.MapFrom(src=> src.Bill.Customer.Name))
+                .ForMember(d=> d.Bill_Num, i=>i.MapFrom(src=>src.Bill.Number.ToString()))
+                
+
        .ReverseMap();
             #endregion
             #region RecoveryManager 

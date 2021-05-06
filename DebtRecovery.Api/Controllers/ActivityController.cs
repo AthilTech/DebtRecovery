@@ -51,6 +51,7 @@ namespace DebtRecovery.Api.Controllers
         public async Task<string> Post(Activity Activity)
         {
             return await _mediator.Send(new PostCommand<Activity>(Activity));
+          //  History history = new History()
         }
 
 
