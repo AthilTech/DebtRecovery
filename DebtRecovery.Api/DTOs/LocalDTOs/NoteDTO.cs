@@ -10,5 +10,6 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public Guid NoteId { get; set; }
         public DateTime Date { get; set; }
         public string Type { get; set; }
+        public Guid FK_Bill { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace DebtRecovery.Api.Controllers
 
         public IEnumerable<BillDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<Bill>())
+            return _mediator.Send(new GetListQuery<Bill>(includes: i => i.Include(e => e.Customer)))
                 .Result.Select(comp => _mapper.Map<BillDTO>(comp));
 
         }
@@ -46,7 +46,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public BillDTO Get(Guid id)
         {
-            Bill Bill = _mediator.Send(new GetQuery<Bill>(condition: c => c.BillId == id)).Result;
+            Bill Bill = _mediator.Send(new GetQuery<Bill>(condition: c => c.BillId == id, includes: i => i.Include(e => e.Customer))).Result;
             return _mapper.Map<BillDTO>(Bill);
         }
 
@@ -84,4 +84,5 @@ namespace DebtRecovery.Api.Controllers
         #endregion
 
     }
+
 }

@@ -33,7 +33,7 @@ namespace DebtRecovery.Api.Controllers
         // GET: api/Activity
         [HttpGet]
         public IEnumerable<ActivityDTO> Get()
-        {
+        { //trying the methos of add days here i,stead of mapping profile and seeing if it works
             return _mediator.Send(new GetListQuery<Activity>())
                 .Result.Select(comp => _mapper.Map<ActivityDTO>(comp));
         }
@@ -74,8 +74,7 @@ namespace DebtRecovery.Api.Controllers
         {
             return _mediator.Send(new GetListQuery<Activity>(condition: c => c.FK_Scenario == scenarioId)).Result.Select(a => _mapper.Map<ActivityDTO>(a)).ToList();
         
-        }
-
+        } 
         #endregion
 
     }

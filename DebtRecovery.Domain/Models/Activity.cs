@@ -18,7 +18,10 @@ namespace DebtRecovery.Domain.Models
 
         //
         public int BeforeDays { get; set; }
-        public int AfterDays { get; set; }
+        public int AfterDays { get; set; } 
+
+        // testing this activity date thing 
+        public DateTime date { get; set; }
 
         //reference properities
 

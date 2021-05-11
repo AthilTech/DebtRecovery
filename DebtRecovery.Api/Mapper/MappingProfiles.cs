@@ -21,10 +21,15 @@ namespace DebtRecovery.Api.Mapper
 
         public MappingProfiles()
         {
+
+
+
+
             #region Bill 
 
             CreateMap<Bill, BillDTO>()
-            .ForMember(c => c.FK_Customer, i => i.MapFrom(src => src.Customer.CustomerId))
+                .ForMember(b => b.FK_Customer, i => i.MapFrom(src => src.Customer.CustomerId))
+                .ForMember(c => c.CustomerName, i => i.MapFrom(src => src.Customer.Name))
 
              .ReverseMap();
                
@@ -64,7 +69,9 @@ namespace DebtRecovery.Api.Mapper
             #region Activity 
 
             CreateMap<Activity, ActivityDTO>()
-       .ReverseMap();
+                .ForMember(a => a.date, opt => opt.MapFrom(src => src.BeforeDays == 0?src.date.AddDays(src.AfterDays ): src.date.AddDays(-src.BeforeDays)))
+                .ReverseMap();
+            
             #endregion
             #region Promise 
 
@@ -101,11 +108,7 @@ namespace DebtRecovery.Api.Mapper
             #region Note 
 
             CreateMap<Note, NoteDTO>()
-       .ReverseMap();
-            #endregion
-            #region Customer
-
-            CreateMap<Customer, CustomerDTO>()
+                .ForMember(c => c.FK_Bill, i => i.MapFrom(src => src.Bill.BillId))
        .ReverseMap();
             #endregion
             #region History 
@@ -125,16 +128,18 @@ namespace DebtRecovery.Api.Mapper
              .ForMember(f => f.SubsidiaryCode, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryCode))
             .ReverseMap();
             #endregion
-
             #region Customer 
             CreateMap<Customer, CustomerDTO>()
                 .ForMember(d => d.CustomerAbreviation, i => i.MapFrom(src => src.Name.Trim()[0].ToString() + src.Name[src.Name.IndexOf(' ') + 1].ToString()))
-               .ReverseMap();
+                .ForMember(b => b.TotalPayed, i => i.MapFrom(src => src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum()))
+      
+               .ReverseMap(); 
             CreateMap<Customer, CustomerInfoDTO>()
+
              .ForMember(b => b.TotalPayed, i => i.MapFrom(src => src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum()))
+             .ForMember(d => d.CustomerAbreviation, i => i.MapFrom(src => src.Name.Trim()[0].ToString() + src.Name[src.Name.IndexOf(' ') + 1].ToString()))
+              .ForMember(b => b.NotPayed, i => i.MapFrom(src => src.Bills.Sum(b => b.Total) - src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum())) //we need to find out what a bill has exactly thats how we can figure out how to do the amount needed
              .ReverseMap();
-
-
             #endregion
 
 
@@ -143,5 +148,8 @@ namespace DebtRecovery.Api.Mapper
 
     }
 }
+
+
+
 
 

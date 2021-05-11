@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DebtRecovery.Api.DTOs.LocalDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -32,7 +33,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet]
         public IEnumerable<NoteDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<Note>())
+            return _mediator.Send(new GetListQuery<Note>(includes: i => i.Include(b => b.Bill)))
                 .Result.Select(comp => _mapper.Map<NoteDTO>(comp));
         }
 
@@ -40,7 +41,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("{id}")]
         public NoteDTO Get(Guid id)
         {
-            Note Note = _mediator.Send(new GetQuery<Note>(condition: n => n.NoteId == id)).Result;
+            Note Note = _mediator.Send(new GetQuery<Note>(condition: n => n.NoteId == id, includes: i => i.Include(b => b.Bill))).Result;
             return _mapper.Map<NoteDTO>(Note);
         }
 
@@ -68,6 +69,12 @@ namespace DebtRecovery.Api.Controllers
 
         #region Custom Web Methods
 
+        [HttpGet("notes-by-bill-id")]
+        public async Task<IEnumerable<NoteDTO>> GetNotesByBillId(Guid BillId)
+        {
+            return _mediator.Send(new GetListQuery<Note>(condition: c => c.FK_Bill == BillId, includes: i => i.Include(b => b.Bill)))
+              .Result.Select(note => _mapper.Map<NoteDTO>(note));
+        }
 
         #endregion
     }

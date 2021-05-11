@@ -52,6 +52,9 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
@@ -74,6 +77,7 @@ namespace DebtRecovery.Data.Migrations
                             Model = "model 1",
                             Order = 0,
                             Type = "thoughtfulness",
+                            date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isActive = true
                         },
                         new
@@ -88,6 +92,7 @@ namespace DebtRecovery.Data.Migrations
                             Model = "model 2",
                             Order = 0,
                             Type = "relaunch",
+                            date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isActive = true
                         },
                         new
@@ -102,6 +107,7 @@ namespace DebtRecovery.Data.Migrations
                             Model = "model 3",
                             Order = 0,
                             Type = "thanks",
+                            date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isActive = true
                         });
                 });
@@ -177,7 +183,7 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<Guid?>("FK_Agent")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FK_Scenario")
+                    b.Property<Guid?>("FK_Scenario")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FaxNumber")
@@ -538,8 +544,7 @@ namespace DebtRecovery.Data.Migrations
 
                     b.HasOne("DebtRecovery.Domain.Models.Scenario", "Scenario")
                         .WithMany("Customers")
-                        .HasForeignKey("FK_Scenario")
-                        .IsRequired();
+                        .HasForeignKey("FK_Scenario");
                 });
 
             modelBuilder.Entity("DebtRecovery.Domain.Models.History", b =>
