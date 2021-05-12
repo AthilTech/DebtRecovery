@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    [Migration("20210504115415_v1")]
-    partial class v1
+    [Migration("20210510155630_l")]
+    partial class l
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,6 +54,9 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
@@ -76,6 +79,7 @@ namespace DebtRecovery.Data.Migrations
                             Model = "model 1",
                             Order = 0,
                             Type = "thoughtfulness",
+                            date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isActive = true
                         },
                         new
@@ -88,8 +92,9 @@ namespace DebtRecovery.Data.Migrations
                             IsAuto = true,
                             Media = "email",
                             Model = "model 2",
-                            Order = 1,
+                            Order = 0,
                             Type = "relaunch",
+                            date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isActive = true
                         },
                         new
@@ -102,8 +107,9 @@ namespace DebtRecovery.Data.Migrations
                             IsAuto = true,
                             Media = "email",
                             Model = "model 3",
-                            Order = 2,
+                            Order = 0,
                             Type = "thanks",
+                            date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isActive = true
                         });
                 });
@@ -179,7 +185,7 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<Guid?>("FK_Agent")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FK_Scenario")
+                    b.Property<Guid?>("FK_Scenario")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FaxNumber")
@@ -217,7 +223,6 @@ namespace DebtRecovery.Data.Migrations
                             FK_Agent = new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"),
                             FK_Scenario = new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"),
                             FaxNumber = "70861236",
-                            LegalIdentifier = "MLK025F001",
                             Litigation = false,
                             Name = "Magazain Generale",
                             PhoneNumber = "71256587"
@@ -230,7 +235,6 @@ namespace DebtRecovery.Data.Migrations
                             FK_Agent = new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"),
                             FK_Scenario = new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"),
                             FaxNumber = "70256354",
-                            LegalIdentifier = "RCK023MJ556",
                             Litigation = false,
                             Name = "PV Mazraa sidi Thabet",
                             PhoneNumber = "23256587"
@@ -542,8 +546,7 @@ namespace DebtRecovery.Data.Migrations
 
                     b.HasOne("DebtRecovery.Domain.Models.Scenario", "Scenario")
                         .WithMany("Customers")
-                        .HasForeignKey("FK_Scenario")
-                        .IsRequired();
+                        .HasForeignKey("FK_Scenario");
                 });
 
             modelBuilder.Entity("DebtRecovery.Domain.Models.History", b =>

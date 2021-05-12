@@ -28,7 +28,7 @@ namespace DebtRecovery.Domain.Models
         public Agent Agent { get; set; }
 
         // scenario 
-        public Guid FK_Scenario { get; set; }
+        public Guid? FK_Scenario { get; set; }
         public Scenario Scenario { get; set; }
 
 

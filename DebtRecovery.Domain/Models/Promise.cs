@@ -6,7 +6,7 @@ namespace DebtRecovery.Domain.Models
 {
     public class Promise
     {
-
+           
         public Guid PromiseId { get; set; }
      
         public DateTime PromiseDate { get; set; }

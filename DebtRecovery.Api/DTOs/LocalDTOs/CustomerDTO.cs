@@ -16,9 +16,14 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public string Profile { get; set; }
         public string Adress { get; set; }
         public string Email { get; set; }
-        public string CIN { get; set; }
         public string Type { get; set; }
         public bool Litigation { get; set; }
+        public double TotalPayed { get; set; }
+        public double SommmeLitigation { get; set; }
+        #region testing 
+        //public ICollection<Bill> Bills { get; set; }
+        #endregion
+
 
         //
         public string CustomerAbreviation { get; set; }
@@ -39,9 +44,10 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public bool Litigation { get; set; }
         //Pamet State 
         public double LatePayment { get; set; }
-        public double IncomingPayment { get; set; }
-        public double TotalPayed { get; set; }
 
+        public double NotPayed { get; set; } // the sum pf total from bills - sum mte3 les payments
+
+        public double TotalPayed { get; set; } //sum of payments
         //
         public string CustomerAbreviation { get; set; }
 

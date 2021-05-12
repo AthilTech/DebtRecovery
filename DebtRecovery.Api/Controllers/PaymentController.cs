@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DebtRecovery.Api.DTOs.LocalDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -31,17 +32,19 @@ namespace DebtRecovery.Api.Controllers
         #region Standard WebMethods
         // GET: api/Payment
         [HttpGet]
+
         public IEnumerable<PaymentDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<Payment>())
+            return _mediator.Send(new GetListQuery<Payment>(null, includes: i => i.Include(b => b.Bill).ThenInclude(b => b.Customer)))
                 .Result.Select(comp => _mapper.Map<PaymentDTO>(comp));
+
         }
 
 
         [HttpGet("{id}")]
         public PaymentDTO Get(Guid id)
         {
-            Payment Payment = _mediator.Send(new GetQuery<Payment>(condition: c => c.PaymentId == id)).Result;
+            Payment Payment = _mediator.Send(new GetQuery<Payment>(condition: c => c.PaymentId == id, includes: i => i.Include(b => b.Bill).ThenInclude(b => b.Customer))).Result;
             return _mapper.Map<PaymentDTO>(Payment);
         }
 
@@ -68,6 +71,27 @@ namespace DebtRecovery.Api.Controllers
         #endregion
 
         #region Custom Web Methods
+        // GET: api/Payment
+        [HttpGet("payments-by-date-today")]
+
+        public IEnumerable<PaymentDTO> GetPaymentsForToday()
+        {
+
+            return _mediator.Send(new GetListQuery<Payment>(condition: src => src.DueDate.Date== DateTime.Now.Date, includes: i => i.Include(b => b.Bill).ThenInclude(b => b.Customer)))
+                .Result.Select(comp => _mapper.Map<PaymentDTO>(comp));
+
+        }
+
+        // GET: api/Payment
+        [HttpGet("payments-by-date")]
+
+        public IEnumerable<PaymentDTO> GetPaymentsByDate(DateTime datetocompare)
+        {
+
+            return _mediator.Send(new GetListQuery<Payment>(condition: src => src.DueDate.Date == datetocompare.Date, includes: i => i.Include(b => b.Bill).ThenInclude(b => b.Customer)))
+                .Result.Select(comp => _mapper.Map<PaymentDTO>(comp));
+
+        }
 
 
         #endregion

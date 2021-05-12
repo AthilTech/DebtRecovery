@@ -6,6 +6,7 @@ using DebtRecovery.Domain.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet]
         public IEnumerable<BillTripDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<BillTrip>())
+            return _mediator.Send(new GetListQuery<BillTrip>(includes: i => i.Include(b => b.Bill)))
                 .Result.Select(comp => _mapper.Map<BillTripDTO>(comp));
         }
 
@@ -68,6 +69,21 @@ namespace DebtRecovery.Api.Controllers
         }
         #endregion
 
+        #region Custom Web Methods 
+        #region Custom Web Methods
+
+
+        #endregion
+        [HttpGet("trip-info")]
+
+        public IEnumerable<TripInfoDTO> GetTripInfo()
+        {
+            return _mediator.Send(new GetListQuery<BillTrip>(includes: i => i.Include(b => b.Bill).ThenInclude(c => c.Customer)))
+                .Result.Select(comp => _mapper.Map<TripInfoDTO>(comp));
+        }
+
+
+        #endregion
 
 
 

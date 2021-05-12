@@ -17,7 +17,8 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public bool isActive { get; set; }
         //
         public int BeforeDays { get; set; }
-        public int AfterDays { get; set; }
+        public int AfterDays { get; set; } 
+        public DateTime date { get; set; }
 
 
     }
