@@ -86,7 +86,7 @@ namespace DebtRecovery.Data.Migrations
                             IsAuto = true,
                             Media = "email",
                             Model = "model 2",
-                            Order = 0,
+                            Order = 1,
                             Type = "relaunch",
                             isActive = true
                         },
@@ -100,7 +100,7 @@ namespace DebtRecovery.Data.Migrations
                             IsAuto = true,
                             Media = "email",
                             Model = "model 3",
-                            Order = 0,
+                            Order = 2,
                             Type = "thanks",
                             isActive = true
                         });
@@ -215,6 +215,7 @@ namespace DebtRecovery.Data.Migrations
                             FK_Agent = new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"),
                             FK_Scenario = new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"),
                             FaxNumber = "70861236",
+                            LegalIdentifier = "MLK025F001",
                             Litigation = false,
                             Name = "Magazain Generale",
                             PhoneNumber = "71256587"
@@ -227,6 +228,7 @@ namespace DebtRecovery.Data.Migrations
                             FK_Agent = new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"),
                             FK_Scenario = new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"),
                             FaxNumber = "70256354",
+                            LegalIdentifier = "RCK023MJ556",
                             Litigation = false,
                             Name = "PV Mazraa sidi Thabet",
                             PhoneNumber = "23256587"

@@ -287,8 +287,8 @@ namespace DebtRecovery.Data.Migrations
                 values: new object[,]
                 {
                     { new Guid("e0f36a4f-7044-46e7-90b1-923d0737544e"), "Prévenance", 0, 5, new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), true, "email", "model 1", 0, "thoughtfulness", true },
-                    { new Guid("4f4d26bf-e2cf-4d52-8f2b-182b6dc71638"), "Rélance n°1", 3, 0, new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), true, "email", "model 2", 0, "relaunch", true },
-                    { new Guid("264e6890-90d2-423e-b795-607499e31a3f"), "Rémerciement", 5, 0, new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), true, "email", "model 3", 0, "thanks", true }
+                    { new Guid("4f4d26bf-e2cf-4d52-8f2b-182b6dc71638"), "Rélance n°1", 3, 0, new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), true, "email", "model 2", 1, "relaunch", true },
+                    { new Guid("264e6890-90d2-423e-b795-607499e31a3f"), "Rémerciement", 5, 0, new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), true, "email", "model 3", 2, "thanks", true }
                 });
 
             migrationBuilder.InsertData(
@@ -303,12 +303,12 @@ namespace DebtRecovery.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "CustomerId", "Address", "Contact", "Email", "FK_Agent", "FK_Scenario", "FaxNumber", "LegalIdentifier", "Litigation", "Name", "PhoneNumber", "Profile" },
-                values: new object[] { new Guid("a2730fa7-d7e0-40f0-bb5f-75092d8c5583"), null, "Sfaxi Arij", "Mg@tunis.com.tn", new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"), new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), "70861236", null, false, "Magazain Generale", "71256587", null });
+                values: new object[] { new Guid("a2730fa7-d7e0-40f0-bb5f-75092d8c5583"), null, "Sfaxi Arij", "Mg@tunis.com.tn", new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"), new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), "70861236", "MLK025F001", false, "Magazain Generale", "71256587", null });
 
             migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "CustomerId", "Address", "Contact", "Email", "FK_Agent", "FK_Scenario", "FaxNumber", "LegalIdentifier", "Litigation", "Name", "PhoneNumber", "Profile" },
-                values: new object[] { new Guid("17f50cf3-3baa-490e-8716-06c4921f9afe"), null, "Ouni Ramzi", "thabet25@gmail.com", new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"), new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), "70256354", null, false, "PV Mazraa sidi Thabet", "23256587", null });
+                values: new object[] { new Guid("17f50cf3-3baa-490e-8716-06c4921f9afe"), null, "Ouni Ramzi", "thabet25@gmail.com", new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"), new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"), "70256354", "RCK023MJ556", false, "PV Mazraa sidi Thabet", "23256587", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Activities_FK_Scenario",

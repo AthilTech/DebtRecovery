@@ -72,7 +72,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("activities-by-Scenario-id")]
         public List<ActivityDTO> GetActivitiesByScenarioId(Guid scenarioId)
         {
-            return _mediator.Send(new GetListQuery<Activity>(condition: c => c.FK_Scenario == scenarioId)).Result.Select(a => _mapper.Map<ActivityDTO>(a)).ToList();
+            return _mediator.Send(new GetListQuery<Activity>(condition: c => c.FK_Scenario == scenarioId)).Result.Select(a => _mapper.Map<ActivityDTO>(a)).OrderBy(a=>a.Order). ToList();
         
         }
 
