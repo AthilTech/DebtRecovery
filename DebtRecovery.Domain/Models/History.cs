@@ -7,6 +7,8 @@ namespace DebtRecovery.Domain.Models
     public class History
     //we need to create our own attributes
     {
+        public readonly Guid FK_Customer;
+
         public Guid HistoryId { get; set; }
         public string ActionLabel { get; set; }
 
@@ -33,10 +35,10 @@ namespace DebtRecovery.Domain.Models
         public string BillNumber { get; set; }
         public Guid FK_Bill { get; set; }
         public Bill Bill { get; set; }
-
-
-
-
-
+       // public object Bills { get; set; }
+       // public object Customer { get; set; }
+       // public object Customers { get; set; }
+       // public object Scenarios { get; set; }
+       // public object Scenario { get; set; }
     }
 }

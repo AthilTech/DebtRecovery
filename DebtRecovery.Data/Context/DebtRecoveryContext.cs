@@ -166,9 +166,10 @@ namespace DebtRecovery.Data.Context
                    .HasForeignKey(b => b.FK_Bill);
 
             modelBuilder.Entity<History>()
-                   .HasOne<Bill>(b => b.Bill)
-                   .WithMany(n => n.Histories)
-                   .HasForeignKey(b => b.FK_Bill);
+               .HasOne<Bill>(b => b.Bill)
+               .WithMany(n => n.Histories)
+               .HasForeignKey(b => b.FK_Bill);
+                
 
             modelBuilder.Entity<Customer>()
             .HasOne<Scenario>(sc => sc.Scenario)

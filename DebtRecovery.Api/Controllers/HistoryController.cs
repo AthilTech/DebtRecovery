@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DebtRecovery.Api.DTOs.LocalDTOs;
 using System.Threading.Tasks;
+using DebtRecovery.Api.DTOs.LocalDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -66,11 +67,21 @@ namespace DebtRecovery.Api.Controllers
             return await _mediator.Send(new DeleteCommand<History>(id));
         }
         #endregion
-
+    
         #region Custom Web Methods
 
+         [HttpGet("history-by-customer-id")]
+        public HistoryDTO GetCustomerHistory(Guid CustomerId)
+         {
+            History history = _mediator.Send(new GetQuery<History>(condition: h => h.Bill.FK_Customer == CustomerId,
+                  includes: i => i.Include(c => c.Bill).ThenInclude(c => c.Customer).ThenInclude(c=>c.Scenario).ThenInclude(c=>c.Activities))).Result;
 
+            return _mapper.Map<HistoryDTO>(history);
+         }
+       
         #endregion
+         }
+   }
 
-    }
-}
+        
+    
