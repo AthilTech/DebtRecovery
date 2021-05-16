@@ -4,14 +4,16 @@ using DebtRecovery.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    partial class DebtRecoveryContextModelSnapshot : ModelSnapshot
+    [Migration("20210512073317_v1")]
+    partial class v1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,60 +112,6 @@ namespace DebtRecovery.Data.Migrations
                             date = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             isActive = true
                         });
-                });
-
-            modelBuilder.Entity("DebtRecovery.Domain.Models.ActivityInstance", b =>
-                {
-                    b.Property<Guid>("ActivityInstanceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ActionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ActionDuration")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AgentId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AgentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CustomerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("FK_bill")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("Fk_ScenarioActivity")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsAuto")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MediaType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PlanedDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ScenarioActivityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ActivityInstanceId");
-
-                    b.HasIndex("FK_bill");
-
-                    b.HasIndex("Fk_ScenarioActivity");
-
-                    b.ToTable("ActivityInstances");
                 });
 
             modelBuilder.Entity("DebtRecovery.Domain.Models.Bill", b =>
@@ -574,19 +522,6 @@ namespace DebtRecovery.Data.Migrations
                         .WithMany("Activities")
                         .HasForeignKey("FK_Scenario")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DebtRecovery.Domain.Models.ActivityInstance", b =>
-                {
-                    b.HasOne("DebtRecovery.Domain.Models.Bill", "Bill")
-                        .WithMany("ActivityInstances")
-                        .HasForeignKey("FK_bill")
-                        .IsRequired();
-
-                    b.HasOne("DebtRecovery.Domain.Models.Activity", "ScenarioActivity")
-                        .WithMany("ActivityInstances")
-                        .HasForeignKey("Fk_ScenarioActivity")
                         .IsRequired();
                 });
 

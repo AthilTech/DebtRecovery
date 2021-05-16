@@ -52,6 +52,17 @@ namespace DebtRecovery.Infra.Ioc
 
             #endregion
 
+            #region ActivityInstance
+
+            services.AddTransient<IRepository<ActivityInstance>, Repository<ActivityInstance>>();
+            services.AddTransient<IRequestHandler<PostCommand<ActivityInstance>, string>, PostHandler<ActivityInstance>>();
+            services.AddTransient<IRequestHandler<PutCommand<ActivityInstance>, string>, PutHandler<ActivityInstance>>();
+            services.AddTransient<IRequestHandler<DeleteCommand<ActivityInstance>, string>, DeleteHandler<ActivityInstance>>();
+            services.AddTransient<IRequestHandler<GetListQuery<ActivityInstance>, IEnumerable<ActivityInstance>>, GetListHandler<ActivityInstance>>();
+            services.AddTransient<IRequestHandler<GetQuery<ActivityInstance>, ActivityInstance>, GetHandler<ActivityInstance>>();
+
+            #endregion
+
             #region RecoveryAgent
 
             services.AddTransient<IRepository<Agent>, Repository<Agent>>();

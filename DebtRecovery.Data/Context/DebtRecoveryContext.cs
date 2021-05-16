@@ -15,7 +15,7 @@ namespace DebtRecovery.Data.Context
 
         }
 
-             #region DbSets 
+        #region DbSets 
         public DbSet<Role> Roles { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<User> Users { get; set; }
@@ -26,6 +26,7 @@ namespace DebtRecovery.Data.Context
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Scenario> Scenarios { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivityInstance> ActivityInstances { get; set; }
         public DbSet<Promise> Promises { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<History> Histories { get; set; }
@@ -63,9 +64,7 @@ namespace DebtRecovery.Data.Context
                 new Activity() { ActivityId = new Guid("E0F36A4F-7044-46E7-90B1-923D0737544E"), ActivityLabel = "Prévenance", Type = "thoughtfulness", isActive = true, BeforeDays = 5, AfterDays = 0, Media = "email", Order = 0, Model = "model 1", IsAuto = true, FK_Scenario = new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") },
                 new Activity() { ActivityId = new Guid("4F4D26BF-E2CF-4D52-8F2B-182B6DC71638"), ActivityLabel = "Rélance n°1", Type = "relaunch", isActive = true, BeforeDays = 0, AfterDays = 3, Media = "email", Order = 1, Model = "model 2", IsAuto = true, FK_Scenario = new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") },
                 new Activity() { ActivityId = new Guid("{264E6890-90D2-423E-B795-607499E31A3F}"), ActivityLabel = "Rémerciement", Type = "thanks", isActive = true, BeforeDays = 0, AfterDays = 5, Media = "email", Order = 2, Model = "model 3", IsAuto = true, FK_Scenario = new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") }
-
-
-                );
+);
             //customers
             modelBuilder.Entity<Customer>().HasData(
                 new Customer() { CustomerId = new Guid("A2730FA7-D7E0-40F0-BB5F-75092D8C5583"), LegalIdentifier = "MLK025F001", Name = "Magazain Generale", Contact = "Sfaxi Arij", PhoneNumber = "71256587", FaxNumber = "70861236", Litigation = false, Email = "Mg@tunis.com.tn", FK_Agent = new Guid("FB2B536C-B4CB-485E-B65F-30679CF0410B"), FK_Scenario = new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") },
@@ -126,6 +125,18 @@ namespace DebtRecovery.Data.Context
                    .WithMany(a => a.Activities)
                    .HasForeignKey(a => a.FK_Scenario);
 
+            modelBuilder.Entity<ActivityInstance>()
+                   .HasOne<Activity>(a => a.ScenarioActivity)
+                   .WithMany(i => i.ActivityInstances)
+                   .HasForeignKey(a => a.Fk_ScenarioActivity)
+                   .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<ActivityInstance>()
+                  .HasOne<Bill>(a => a.Bill)
+                  .WithMany(i => i.ActivityInstances)
+                  .HasForeignKey(a => a.FK_bill)
+                  .OnDelete(DeleteBehavior.ClientSetNull);
+
             modelBuilder.Entity<Agent>()
                    .HasOne<Manager>(ra => ra.Manager)
                    .WithMany(ce => ce.Agents)
@@ -169,7 +180,7 @@ namespace DebtRecovery.Data.Context
                .HasOne<Bill>(b => b.Bill)
                .WithMany(n => n.Histories)
                .HasForeignKey(b => b.FK_Bill);
-                
+
 
             modelBuilder.Entity<Customer>()
             .HasOne<Scenario>(sc => sc.Scenario)

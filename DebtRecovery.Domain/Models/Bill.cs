@@ -26,7 +26,7 @@ namespace DebtRecovery.Domain.Models
         public ICollection<Payment> Payments { get; set; }
 
         public ICollection<History> Histories { get; set; }
-
+        public ICollection<ActivityInstance> ActivityInstances { get; set; }
         public ICollection<BillTrip> BillTrips { get; set; }
 
         public Guid FK_Customer{ get; set; }

@@ -7,7 +7,9 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
 {
     public class AgentDTO:UserDTO
     {
-        public Guid AgentId { get; set; }
+      
+        public Guid Fk_Manager { get; set; }
+        public string ManagerFullName { get; set; }
 
 
     }

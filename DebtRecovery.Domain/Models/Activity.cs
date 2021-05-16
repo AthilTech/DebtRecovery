@@ -18,7 +18,7 @@ namespace DebtRecovery.Domain.Models
 
         //
         public int BeforeDays { get; set; }
-        public int AfterDays { get; set; } 
+        public int AfterDays { get; set; }
 
         // testing this activity date thing 
         public DateTime date { get; set; }
@@ -29,5 +29,7 @@ namespace DebtRecovery.Domain.Models
         public Guid FK_Scenario { get; set; }
         public Scenario Scenario { get; set; }
 
+        //
+        public ICollection<ActivityInstance> ActivityInstances { get; set; }
     }
 }

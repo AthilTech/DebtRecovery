@@ -69,7 +69,7 @@ namespace DebtRecovery.Api.Mapper
             #region Activity 
 
             CreateMap<Activity, ActivityDTO>()
-                .ForMember(a => a.date, opt => opt.MapFrom(src => src.BeforeDays == 0?src.date.AddDays(src.AfterDays ): src.date.AddDays(-src.BeforeDays)))
+              //  .ForMember(a => a.date, opt => opt.MapFrom(src => src.BeforeDays == 0?src.date.AddDays(src.AfterDays ): src.date.AddDays(-src.BeforeDays)))
                 .ReverseMap();
             
             #endregion
@@ -127,9 +127,17 @@ namespace DebtRecovery.Api.Mapper
             CreateMap<Manager, ManagerDTO>()
        .ReverseMap();
             #endregion
+            #region Agent 
+            CreateMap<Agent, AgentDTO>()
+          .ForMember(d => d.FullName, i => i.MapFrom(src => $"{src.Name} {src.LastName}"))
+          .ForMember(d => d.FK_Subsidiary, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryId))
+           .ForMember(f => f.SubsidiaryCode, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryCode))
+          .ReverseMap();
+            #endregion
             #region User 
-           
+
             CreateMap<User, UserDTO>()
+            .ForMember(d => d.FullName, i => i.MapFrom(src => $"{src.Name} {src.LastName}"))
             .ForMember(d => d.FK_Subsidiary, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryId))
              .ForMember(f => f.SubsidiaryCode, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryCode))
             .ReverseMap();

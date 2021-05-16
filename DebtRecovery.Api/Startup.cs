@@ -28,7 +28,8 @@ namespace DebtRecovery.Api
 
             services.AddDbContext<DebtRecoveryContext>(options =>
             {
-                options.UseSqlServer("Data Source=DESKTOP-QS8QK9N;Initial Catalog=DebtRecovery;Integrated Security=True;");
+                options.UseSqlServer(Configuration.GetConnectionString("DevConnection"));
+              
 
             });
 
