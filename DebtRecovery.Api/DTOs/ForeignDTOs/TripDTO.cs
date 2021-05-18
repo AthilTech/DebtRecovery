@@ -13,5 +13,6 @@ namespace DebtRecovery.Api.DTOs.ForeignDTOs
         public string Location { get; set; }
         public string Description { get; set; }
         public bool plannified { get; set; }
+        public string Status { get; set; }
     }
 }

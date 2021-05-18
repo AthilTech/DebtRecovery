@@ -53,7 +53,7 @@ namespace DebtRecovery.Api.Controllers
 
         [HttpPost]
         public async Task<string> Post(Bill Bill)
-        {
+        {  
             return await _mediator.Send(new PostCommand<Bill>(Bill));
         }
 

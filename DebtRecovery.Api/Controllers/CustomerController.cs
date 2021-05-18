@@ -72,7 +72,7 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("in-litigation")]
         public IEnumerable<CustomerDTO> GetLitigation()
         {
-            return _mediator.Send(new GetListQuery<Customer>(condition: c => c.Litigation))
+            return _mediator.Send(new GetListQuery<Customer>(condition: c => c.Litigation, includes: i => i.Include(c => c.Bills).ThenInclude(b => b.Payments)))
                 .Result.Select(comp => _mapper.Map<CustomerDTO>(comp));
 
         }

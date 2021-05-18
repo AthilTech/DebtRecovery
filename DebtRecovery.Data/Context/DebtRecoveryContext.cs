@@ -67,7 +67,7 @@ namespace DebtRecovery.Data.Context
 );
             //customers
             modelBuilder.Entity<Customer>().HasData(
-                new Customer() { CustomerId = new Guid("A2730FA7-D7E0-40F0-BB5F-75092D8C5583"), LegalIdentifier = "MLK025F001", Name = "Magazain Generale", Contact = "Sfaxi Arij", PhoneNumber = "71256587", FaxNumber = "70861236", Litigation = false, Email = "Mg@tunis.com.tn", FK_Agent = new Guid("FB2B536C-B4CB-485E-B65F-30679CF0410B"), FK_Scenario = new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") },
+                new Customer() { CustomerId = new Guid("A2730FA7-D7E0-40F0-BB5F-75092D8C5583"), LegalIdentifier = "MLK025F001", Name = "Magazin Generale", Contact = "Sfaxi Arij", PhoneNumber = "71256587", FaxNumber = "70861236", Litigation = false, Email = "Mg@tunis.com.tn", FK_Agent = new Guid("FB2B536C-B4CB-485E-B65F-30679CF0410B"), FK_Scenario = new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") },
                 new Customer() { CustomerId = new Guid("{17F50CF3-3BAA-490E-8716-06C4921F9AFE}"), LegalIdentifier = "RCK023MJ556", Name = "PV Mazraa sidi Thabet", Contact = "Ouni Ramzi", PhoneNumber = "23256587", FaxNumber = "70256354", Litigation = false, Email = "thabet25@gmail.com", FK_Agent = new Guid("FB2B536C-B4CB-485E-B65F-30679CF0410B"), FK_Scenario = new Guid("9BEBB407-74DF-4F82-96C8-BB523A99B3E3") }
        );
 

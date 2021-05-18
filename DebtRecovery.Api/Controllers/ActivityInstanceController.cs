@@ -74,20 +74,20 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("generated-activity-instances")]
         public IEnumerable<GeneratedActivityInstanceDTO> GetGeneratedActivityInstances()
         {
-           
+
             List<GeneratedActivityInstanceDTO> allGeneratedActivityInstanceDTOs = new List<GeneratedActivityInstanceDTO>() { };
             var allBills = _mediator.Send(new GetListQuery<Bill>(includes: i => i.Include(e => e.Customer)
              .ThenInclude(c => c.Scenario).ThenInclude(s => s.Activities))).Result;
             foreach (var bill in allBills)
             {
-                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill,null));
+                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill, DateTime.Now));
             }
             return allGeneratedActivityInstanceDTOs;
-           
-                
+
+
         }
-        [HttpGet("generated-today-activity-instances")]
-        public IEnumerable<GeneratedActivityInstanceDTO> GetGeneratedTodayActivityInstances()
+        [HttpGet("generated-activity-instances-by-date")]
+        public IEnumerable<GeneratedActivityInstanceDTO> GetGeneratedTodayActivityInstances(DateTime? date)
         {
 
             List<GeneratedActivityInstanceDTO> allGeneratedActivityInstanceDTOs = new List<GeneratedActivityInstanceDTO>() { };
@@ -95,7 +95,7 @@ namespace DebtRecovery.Api.Controllers
              .ThenInclude(c => c.Scenario).ThenInclude(s => s.Activities))).Result;
             foreach (var bill in allBills)
             {
-                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill,DateTime.Now.Date));
+                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill, date == null ? DateTime.Now.Date : date.Value));
             }
             return allGeneratedActivityInstanceDTOs;
 
@@ -105,17 +105,17 @@ namespace DebtRecovery.Api.Controllers
 
         #region Not web Methods
         [ApiExplorerSettings(IgnoreApi = true)]
-        public List<GeneratedActivityInstanceDTO> GenerateActivitiInstances(Bill bill,DateTime?  date)
+        public List<GeneratedActivityInstanceDTO> GenerateActivitiInstances(Bill bill, DateTime date)
         {
             //Expression<Func<Activity, bool>> condition = null,
             //Func< IQueryable<T>, IIncludableQueryable<T, object> > includes = null
             List<GeneratedActivityInstanceDTO> generatedActivityInstanceDTOs = new List<GeneratedActivityInstanceDTO>() { };
-            var currentCustomerScenarioActivities = bill.Customer.Scenario.Activities.Where(a=>a.IsAuto==false && a.isActive && a.Scenario.IsActive);
+            var currentCustomerScenarioActivities = bill.Customer.Scenario.Activities.Where(a => a.IsAuto == false && a.isActive && a.Scenario.IsActive);
 
             foreach (var activity in currentCustomerScenarioActivities)
             {
-                ActivityInstance activityInstance = _mediator.Send(new GetQuery<ActivityInstance>(condition: ai => ai.FK_bill==bill.BillId && ai.Fk_ScenarioActivity==activity.ActivityId )).Result;
-                if (bill.Deadline.AddDays(activity.Type == "thoughtfulness" ? activity.BeforeDays * -1 : activity.AfterDays).Date==date )
+                ActivityInstance activityInstance = _mediator.Send(new GetQuery<ActivityInstance>(condition: ai => ai.FK_bill == bill.BillId && ai.Fk_ScenarioActivity == activity.ActivityId)).Result;
+                if (bill.Deadline.AddDays(activity.Type == "thoughtfulness" ? activity.BeforeDays * -1 : activity.AfterDays).Date == date)
                 {
                     generatedActivityInstanceDTOs.Add(new GeneratedActivityInstanceDTO()
                     {
@@ -126,11 +126,11 @@ namespace DebtRecovery.Api.Controllers
                         MediaType = activity.Media,
                         ScenarioActivityName = activity.ActivityLabel,
                         Fk_ScenarioActivity = activity.ActivityId,
-                        IsAchieved= activityInstance!=null,
+                        IsAchieved = activityInstance != null,
                         //bill
                         BillNumber = bill.Number,
                         FK_bill = bill.BillId,
-                        BillAmount=bill.Total,
+                        BillAmount = bill.Total,
                         //Customer
                         CustomerName = bill.Customer.Name,
                         CustomerId = bill.FK_Customer,
@@ -139,9 +139,9 @@ namespace DebtRecovery.Api.Controllers
                         ScenarioLabel = activity.Scenario.ScenarioLabel
 
 
-                    }) ; 
+                    });
                 }
-               
+
             }
             return generatedActivityInstanceDTOs;
         }
