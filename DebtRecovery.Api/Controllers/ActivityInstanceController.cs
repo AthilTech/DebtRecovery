@@ -80,14 +80,14 @@ namespace DebtRecovery.Api.Controllers
              .ThenInclude(c => c.Scenario).ThenInclude(s => s.Activities))).Result;
             foreach (var bill in allBills)
             {
-                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill,null));
+                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill,DateTime.Now));
             }
             return allGeneratedActivityInstanceDTOs;
            
                 
         }
-        [HttpGet("generated-today-activity-instances")]
-        public IEnumerable<GeneratedActivityInstanceDTO> GetGeneratedTodayActivityInstances()
+        [HttpGet("generated-activity-instances-by-date")]
+        public IEnumerable<GeneratedActivityInstanceDTO> GetGeneratedTodayActivityInstances(DateTime? date)
         {
 
             List<GeneratedActivityInstanceDTO> allGeneratedActivityInstanceDTOs = new List<GeneratedActivityInstanceDTO>() { };
@@ -95,7 +95,7 @@ namespace DebtRecovery.Api.Controllers
              .ThenInclude(c => c.Scenario).ThenInclude(s => s.Activities))).Result;
             foreach (var bill in allBills)
             {
-                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill,DateTime.Now.Date));
+                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill,date==null?DateTime.Now.Date:date.Value));
             }
             return allGeneratedActivityInstanceDTOs;
 
@@ -105,7 +105,7 @@ namespace DebtRecovery.Api.Controllers
 
         #region Not web Methods
         [ApiExplorerSettings(IgnoreApi = true)]
-        public List<GeneratedActivityInstanceDTO> GenerateActivitiInstances(Bill bill,DateTime?  date)
+        public List<GeneratedActivityInstanceDTO> GenerateActivitiInstances(Bill bill,DateTime  date)
         {
             //Expression<Func<Activity, bool>> condition = null,
             //Func< IQueryable<T>, IIncludableQueryable<T, object> > includes = null

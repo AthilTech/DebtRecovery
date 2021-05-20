@@ -16,7 +16,10 @@ namespace DebtRecovery.Domain.Models
         public string Profile { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
-        public bool Litigation { get; set; } 
+        public bool Litigation { get; set; }
+        public double LatePayment { get; set; }
+
+        public double NotPayed { get; set; }
 
         //relationships 
 
@@ -32,7 +35,8 @@ namespace DebtRecovery.Domain.Models
         public Scenario Scenario { get; set; }
 
 
-
+        //Comments
+        public ICollection<Comment> Comments { get; set; }
 
     }
 }

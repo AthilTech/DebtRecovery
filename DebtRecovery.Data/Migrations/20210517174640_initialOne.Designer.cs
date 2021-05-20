@@ -4,14 +4,16 @@ using DebtRecovery.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    partial class DebtRecoveryContextModelSnapshot : ModelSnapshot
+    [Migration("20210517174640_initialOne")]
+    partial class initialOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,25 +221,6 @@ namespace DebtRecovery.Data.Migrations
                     b.ToTable("BillTrips");
                 });
 
-            modelBuilder.Entity("DebtRecovery.Domain.Models.Comment", b =>
-                {
-                    b.Property<Guid>("CommentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("FK_Customer")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CommentId");
-
-                    b.HasIndex("FK_Customer");
-
-                    b.ToTable("Comments");
-                });
-
             modelBuilder.Entity("DebtRecovery.Domain.Models.Customer", b =>
                 {
                     b.Property<Guid>("CustomerId")
@@ -262,9 +245,6 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<string>("FaxNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("LatePayment")
-                        .HasColumnType("float");
-
                     b.Property<string>("LegalIdentifier")
                         .HasColumnType("nvarchar(max)");
 
@@ -273,9 +253,6 @@ namespace DebtRecovery.Data.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("NotPayed")
-                        .HasColumnType("float");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -300,11 +277,9 @@ namespace DebtRecovery.Data.Migrations
                             FK_Agent = new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"),
                             FK_Scenario = new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"),
                             FaxNumber = "70861236",
-                            LatePayment = 0.0,
                             LegalIdentifier = "MLK025F001",
                             Litigation = false,
                             Name = "Magazin Generale",
-                            NotPayed = 0.0,
                             PhoneNumber = "71256587"
                         },
                         new
@@ -315,11 +290,9 @@ namespace DebtRecovery.Data.Migrations
                             FK_Agent = new Guid("fb2b536c-b4cb-485e-b65f-30679cf0410b"),
                             FK_Scenario = new Guid("9bebb407-74df-4f82-96c8-bb523a99b3e3"),
                             FaxNumber = "70256354",
-                            LatePayment = 0.0,
                             LegalIdentifier = "RCK023MJ556",
                             Litigation = false,
                             Name = "PV Mazraa sidi Thabet",
-                            NotPayed = 0.0,
                             PhoneNumber = "23256587"
                         });
                 });
@@ -633,15 +606,6 @@ namespace DebtRecovery.Data.Migrations
                     b.HasOne("DebtRecovery.Domain.Models.Bill", "Bill")
                         .WithMany("BillTrips")
                         .HasForeignKey("FK_Bill")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DebtRecovery.Domain.Models.Comment", b =>
-                {
-                    b.HasOne("DebtRecovery.Domain.Models.Customer", "Customer")
-                        .WithMany("Comments")
-                        .HasForeignKey("FK_Customer")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

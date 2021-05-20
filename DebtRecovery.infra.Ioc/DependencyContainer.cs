@@ -172,6 +172,17 @@ namespace DebtRecovery.Infra.Ioc
               services.AddTransient<IRequestHandler<GetQuery<BillTrip>, BillTrip>, GetHandler<BillTrip>>();
 
             #endregion
+
+
+            #region Comment
+            services.AddTransient<IRepository<Comment>, Repository<Comment>>();
+            services.AddTransient<IRequestHandler<PostCommand<Comment>, string>, PostHandler<Comment>>();
+            services.AddTransient<IRequestHandler<PutCommand<Comment>, string>, PutHandler<Comment>>();
+            services.AddTransient<IRequestHandler<DeleteCommand<Comment>, string>, DeleteHandler<Comment>>();
+            services.AddTransient<IRequestHandler<GetListQuery<Comment>, IEnumerable<Comment>>, GetListHandler<Comment>>();
+            services.AddTransient<IRequestHandler<GetQuery<Comment>, Comment>, GetHandler<Comment>>();
+
+            #endregion
         }
     }
 }
