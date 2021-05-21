@@ -12,6 +12,7 @@ namespace DebtRecovery.Domain.Queries
     {
         public Expression<Func<T, bool>> Condition { get; set; }
         public Func<IQueryable<T>, IIncludableQueryable<T, object>> Includes { get; set; }
+        public IEnumerable<object> Result { get; set; }
 
         public GetListQuery(Expression<Func<T, bool>> condition = null,
             Func<IQueryable<T>, IIncludableQueryable<T, object>> includes = null)

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DebtRecovery.Data.Migrations
 {
-    public partial class v1 : Migration
+    public partial class m1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -149,6 +149,42 @@ namespace DebtRecovery.Data.Migrations
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ActivityInstances",
+                columns: table => new
+                {
+                    ActivityInstanceId = table.Column<Guid>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    PlanedDate = table.Column<string>(nullable: true),
+                    ActionDate = table.Column<DateTime>(nullable: false),
+                    MediaType = table.Column<string>(nullable: true),
+                    ActionDuration = table.Column<int>(nullable: false),
+                    IsAuto = table.Column<bool>(nullable: false),
+                    CustomerId = table.Column<Guid>(nullable: false),
+                    CustomerName = table.Column<string>(nullable: true),
+                    AgentId = table.Column<string>(nullable: true),
+                    AgentName = table.Column<string>(nullable: true),
+                    Fk_ScenarioActivity = table.Column<Guid>(nullable: false),
+                    ScenarioActivityName = table.Column<string>(nullable: true),
+                    FK_bill = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActivityInstances", x => x.ActivityInstanceId);
+                    table.ForeignKey(
+                        name: "FK_ActivityInstances_Bills_FK_bill",
+                        column: x => x.FK_bill,
+                        principalTable: "Bills",
+                        principalColumn: "BillId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ActivityInstances_Activities_Fk_ScenarioActivity",
+                        column: x => x.Fk_ScenarioActivity,
+                        principalTable: "Activities",
+                        principalColumn: "ActivityId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -318,6 +354,16 @@ namespace DebtRecovery.Data.Migrations
                 column: "FK_Scenario");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ActivityInstances_FK_bill",
+                table: "ActivityInstances",
+                column: "FK_bill");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityInstances_Fk_ScenarioActivity",
+                table: "ActivityInstances",
+                column: "Fk_ScenarioActivity");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bills_FK_Customer",
                 table: "Bills",
                 column: "FK_Customer");
@@ -371,7 +417,7 @@ namespace DebtRecovery.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Activities");
+                name: "ActivityInstances");
 
             migrationBuilder.DropTable(
                 name: "BillTrips");
@@ -387,6 +433,9 @@ namespace DebtRecovery.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Promises");
+
+            migrationBuilder.DropTable(
+                name: "Activities");
 
             migrationBuilder.DropTable(
                 name: "Bills");
