@@ -74,17 +74,17 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("generated-activity-instances")]
         public IEnumerable<GeneratedActivityInstanceDTO> GetGeneratedActivityInstances()
         {
-
+           
             List<GeneratedActivityInstanceDTO> allGeneratedActivityInstanceDTOs = new List<GeneratedActivityInstanceDTO>() { };
             var allBills = _mediator.Send(new GetListQuery<Bill>(includes: i => i.Include(e => e.Customer)
              .ThenInclude(c => c.Scenario).ThenInclude(s => s.Activities))).Result;
             foreach (var bill in allBills)
             {
-                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill, DateTime.Now));
+                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill,DateTime.Now));
             }
             return allGeneratedActivityInstanceDTOs;
-
-
+           
+                
         }
         [HttpGet("generated-activity-instances-by-date")]
         public IEnumerable<GeneratedActivityInstanceDTO> GetGeneratedTodayActivityInstances(DateTime? date)
@@ -95,7 +95,7 @@ namespace DebtRecovery.Api.Controllers
              .ThenInclude(c => c.Scenario).ThenInclude(s => s.Activities))).Result;
             foreach (var bill in allBills)
             {
-                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill, date == null ? DateTime.Now.Date : date.Value));
+                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill,date==null?DateTime.Now.Date:date.Value));
             }
             return allGeneratedActivityInstanceDTOs;
 
@@ -105,7 +105,7 @@ namespace DebtRecovery.Api.Controllers
 
         #region Not web Methods
         [ApiExplorerSettings(IgnoreApi = true)]
-        public List<GeneratedActivityInstanceDTO> GenerateActivitiInstances(Bill bill, DateTime date)
+        public List<GeneratedActivityInstanceDTO> GenerateActivitiInstances(Bill bill,DateTime  date)
         {
             //Expression<Func<Activity, bool>> condition = null,
             //Func< IQueryable<T>, IIncludableQueryable<T, object> > includes = null

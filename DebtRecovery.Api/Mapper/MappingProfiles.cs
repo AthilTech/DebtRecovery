@@ -146,9 +146,10 @@ namespace DebtRecovery.Api.Mapper
             #region Customer 
             CreateMap<Customer, CustomerDTO>()
                 .ForMember(d => d.CustomerAbreviation, i => i.MapFrom(src => src.Name.Trim()[0].ToString() + src.Name[src.Name.IndexOf(' ') + 1].ToString()))
-                .ForMember(b => b.SommmeLitigation, i => i.MapFrom(src => src.Bills.Sum(b => b.Total)))
-      
+                .ForMember(b => b.TotalPayed, i => i.MapFrom(src => src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum()))
+              .ForMember(b => b.NotPayed, i => i.MapFrom(src => src.Bills.Sum(b => b.Total) - src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum())) //we need to find out what a bill has exactly thats how we can figure out how to do the amount needed
                .ReverseMap(); 
+
             CreateMap<Customer, CustomerInfoDTO>()
 
              .ForMember(b => b.TotalPayed, i => i.MapFrom(src => src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum()))
@@ -156,6 +157,12 @@ namespace DebtRecovery.Api.Mapper
               .ForMember(b => b.NotPayed, i => i.MapFrom(src => src.Bills.Sum(b => b.Total) - src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum())) //we need to find out what a bill has exactly thats how we can figure out how to do the amount needed
              .ReverseMap();
             #endregion
+            #region Comment
+
+            CreateMap<Comment, CommentDTO>()
+       .ReverseMap();
+            #endregion
+
         }
 
     }

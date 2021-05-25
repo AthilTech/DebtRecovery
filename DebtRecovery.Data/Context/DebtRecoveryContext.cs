@@ -31,6 +31,9 @@ namespace DebtRecovery.Data.Context
         public DbSet<Note> Notes { get; set; }
         public DbSet<History> Histories { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
+
         #endregion 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -108,6 +111,8 @@ namespace DebtRecovery.Data.Context
             modelBuilder.Entity<Customer>()
             .HasKey(cc => cc.CustomerId);
 
+            modelBuilder.Entity<Comment>()
+          .HasKey(cm => cm.CommentId);
 
 
             #endregion
@@ -190,6 +195,10 @@ namespace DebtRecovery.Data.Context
 
 
 
+            modelBuilder.Entity<Comment>()
+                   .HasOne<Customer>(C => C.Customer)
+                   .WithMany(co => co.Comments)
+                   .HasForeignKey(b => b.FK_Customer);
 
 
 

@@ -34,19 +34,22 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet]
         public IEnumerable<CustomerDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<Customer>())
-                .Result.Select(comp => _mapper.Map<CustomerDTO>(comp));
+            return _mediator.Send(new GetListQuery<Customer>(includes: i => i.Include(c => c.Bills).ThenInclude(b => b.Payments)))
+                .Result.Select(comp => _mapper.Map<CustomerDTO>(comp)); 
         }
 
+      //this is what i added//
 
         [HttpGet("{id}")]
         public CustomerDTO Get(Guid id)
         {
-            Customer Customer= _mediator.Send(new GetQuery<Customer>(condition: c => c.CustomerId == id)).Result;
-            return _mapper.Map<CustomerDTO>(Customer);
+        
+            Customer Customer= _mediator.Send(new GetQuery<Customer>
+            (condition: c => c.CustomerId ==id)).Result;
+            return _mapper.Map<CustomerDTO>(Customer); 
         }
 
-
+       
         [HttpPost]
         public async Task<string> Post(Customer Customer)
         {
