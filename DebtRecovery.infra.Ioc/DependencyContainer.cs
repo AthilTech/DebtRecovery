@@ -173,7 +173,6 @@ namespace DebtRecovery.Infra.Ioc
 
             #endregion
 
-
             #region Comment
             services.AddTransient<IRepository<Comment>, Repository<Comment>>();
             services.AddTransient<IRequestHandler<PostCommand<Comment>, string>, PostHandler<Comment>>();
