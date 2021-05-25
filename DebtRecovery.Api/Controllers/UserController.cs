@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DebtRecovery.Api.DTOs.LocalDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -26,15 +27,18 @@ namespace DebtRecovery.Api.Controllers
             _mapper = mapper;
         }
 
+
+
         #region Standard WebMethods
         // GET: api/TestModel
         [HttpGet]
         public IEnumerable<UserDTO> Get()
         {
-            return _mediator.Send(new GetListQuery<User>())
+            return _mediator.Send(new GetListQuery<User>(
+                includes: i => i.Include(c => c.Role)))
                 .Result.Select(comp => _mapper.Map<UserDTO>(comp));
         }
-
+    
 
         [HttpGet("{id}")]
         public UserDTO Get(Guid id)

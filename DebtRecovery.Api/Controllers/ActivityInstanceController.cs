@@ -100,12 +100,16 @@ namespace DebtRecovery.Api.Controllers
             return allGeneratedActivityInstanceDTOs;
 
 
+
+
+
+
         }
         #endregion
 
         #region Not web Methods
         [ApiExplorerSettings(IgnoreApi = true)]
-        public List<GeneratedActivityInstanceDTO> GenerateActivitiInstances(Bill bill,DateTime  date)
+        public List<GeneratedActivityInstanceDTO> GenerateActivitiInstances(Bill bill, DateTime? date)
         {
             //Expression<Func<Activity, bool>> condition = null,
             //Func< IQueryable<T>, IIncludableQueryable<T, object> > includes = null
@@ -144,7 +148,18 @@ namespace DebtRecovery.Api.Controllers
 
             }
             return generatedActivityInstanceDTOs;
+
         }
+
+            [HttpGet("Acivity-by-customer-id")]
+
+            public async Task<IEnumerable<GeneratedActivityInstanceDTO>> GetActivitybycostumerId(Guid customerId)
+            {
+            return _mediator.Send(new GetListQuery<ActivityInstance>(condition: c => c.CustomerId == customerId, includes: i => i.Include(e => e.Bill)))
+
+             .Result.Select(activity => _mapper.Map<GeneratedActivityInstanceDTO>(activity));
+        }
+        
         #endregion
     }
 }

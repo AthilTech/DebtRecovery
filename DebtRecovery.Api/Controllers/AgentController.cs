@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DebtRecovery.Api.DTOs.LocalDTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace DebtRecovery.Api.Controllers
 {
@@ -69,7 +70,12 @@ namespace DebtRecovery.Api.Controllers
         #endregion
 
         #region Custom Web Methods
-
+        [HttpGet("agent -by-customer-id")]
+        public AgentDTO GetManagerAgent(Guid managerId)
+        {
+            return (AgentDTO)_mediator.Send(new GetListQuery<Agent>(condition: c => c.FK_Manager == managerId))
+                .Result.Select(agent => _mapper.Map<AgentDTO>(agent)); 
+        }
 
         #endregion
 

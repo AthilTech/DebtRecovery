@@ -7,6 +7,8 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
 {
     public class ActivityInstanceDTO
     {
+        internal object billNumber;
+
         public Guid ActivityInstanceId { get; set; }
         public string Description { get; set; }
         public string PlanedDate { get; set; }
@@ -30,7 +32,7 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
 
         //bill
         public Guid FK_bill { get; set; }
-
+        public object BillNumber { get; internal set; }
     }
     public class GeneratedActivityInstanceDTO
     {
