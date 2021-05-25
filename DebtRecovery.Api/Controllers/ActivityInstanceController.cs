@@ -153,10 +153,11 @@ namespace DebtRecovery.Api.Controllers
 
             [HttpGet("Acivity-by-customer-id")]
 
-            public async Task<IEnumerable<ActivityInstanceDTO>> GetActivitybycostumerId(Guid customerId)
+            public async Task<IEnumerable<GeneratedActivityInstanceDTO>> GetActivitybycostumerId(Guid customerId)
             {
-                return _mediator.Send(new GetListQuery<ActivityInstance>(condition: c => c.CustomerId == customerId))
-                .Result.Select(activity => _mapper.Map<ActivityInstanceDTO>(activity));
+            return _mediator.Send(new GetListQuery<ActivityInstance>(condition: c => c.CustomerId == customerId, includes: i => i.Include(e => e.Bill)))
+
+             .Result.Select(activity => _mapper.Map<GeneratedActivityInstanceDTO>(activity));
         }
         
         #endregion
