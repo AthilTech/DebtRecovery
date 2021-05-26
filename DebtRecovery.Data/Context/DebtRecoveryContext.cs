@@ -30,7 +30,7 @@ namespace DebtRecovery.Data.Context
         public DbSet<Promise> Promises { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<History> Histories { get; set; }
-
+        public DbSet<Comment> Comments { get; set; }
         #endregion 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -175,6 +175,11 @@ namespace DebtRecovery.Data.Context
                    .HasOne<Bill>(b => b.Bill)
                    .WithMany(n => n.Notes)
                    .HasForeignKey(b => b.FK_Bill);
+
+            modelBuilder.Entity<Comment>()
+                   .HasOne<Customer>(C => C.Customer)
+                   .WithMany(co => co.Commentss)
+                   .HasForeignKey(b => b.FK_Customer);
 
             modelBuilder.Entity<History>()
                .HasOne<Bill>(b => b.Bill)

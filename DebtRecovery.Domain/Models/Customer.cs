@@ -30,7 +30,7 @@ namespace DebtRecovery.Domain.Models
         // scenario 
         public Guid? FK_Scenario { get; set; }
         public Scenario Scenario { get; set; }
-
+        public ICollection<Comment> Commentss { get; set; }
 
 
 

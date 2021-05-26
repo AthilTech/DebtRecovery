@@ -16,12 +16,12 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public string BillNumber { get; set; }
         public Guid FK_Customer { get; set; }
       public string CustomerName  { get; set; }
+       
 
-
-}
+    }
     public class PaymentSumDTO
     {
         public List<PaymentDTO> Payments { get; set; }
-        public double Sum { get; set; }
+        public decimal Sum { get; set; }
     }
 }

@@ -30,6 +30,7 @@ namespace DebtRecovery.Api.Mapper
             CreateMap<Bill, BillDTO>()
                 .ForMember(b => b.FK_Customer, i => i.MapFrom(src => src.Customer.CustomerId))
                 .ForMember(c => c.CustomerName, i => i.MapFrom(src => src.Customer.Name))
+                .ForMember(b => b.Sum, i => i.MapFrom(src => src.Payments.Sum(b => b.PayedAmount)))
 
              .ReverseMap();
                
@@ -62,6 +63,11 @@ namespace DebtRecovery.Api.Mapper
 
                  .ReverseMap();
             #endregion
+            #region Comment
+
+            CreateMap<Comment, CommentDTO>()
+       .ReverseMap();
+            #endregion
             #region RecoveryAgent 
 
             CreateMap<Agent, AgentDTO>()
@@ -88,10 +94,12 @@ namespace DebtRecovery.Api.Mapper
                 .ForMember(c => c.BillNumber, i => i.MapFrom(src => src.Bill.Number))
                 .ForMember(c => c.FK_Customer, i => i.MapFrom(src => src.Bill.Customer.CustomerId))
                 .ForMember(c => c.CustomerName, i => i.MapFrom(src => src.Bill.Customer.Name))
+          
 
 
 
-       .ReverseMap();
+
+      .ReverseMap();
 
 
             #endregion
@@ -130,16 +138,18 @@ namespace DebtRecovery.Api.Mapper
             #endregion
             #region Agent 
             CreateMap<Agent, AgentDTO>()
-          .ForMember(d => d.FullName, i => i.MapFrom(src => $"{src.Name} {src.LastName}"))
+          .ForMember(d => d.FullName, i => i.MapFrom(src => $"{src.Manager.LastName} {src.Manager.Name}"))
           .ForMember(d => d.FK_Subsidiary, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryId))
            .ForMember(f => f.SubsidiaryCode, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryCode))
+
           .ReverseMap();
             #endregion
             #region User 
 
             CreateMap<User, UserDTO>()
             .ForMember(d => d.FullName, i => i.MapFrom(src => $"{src.Name} {src.LastName}"))
-            .ForMember(d => d.FK_Subsidiary, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryId))
+             .ForMember(d => d.FK_Subsidiary, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryId))
+             .ForMember(d => d.Label, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).Label))
              .ForMember(f => f.SubsidiaryCode, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryCode))
             .ReverseMap();
             #endregion
