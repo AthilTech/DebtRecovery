@@ -30,5 +30,9 @@
     <ProjectReference Include="..\DebtRecovery.infra.Ioc\DebtRecovery.Infra.Ioc.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="services\" />
+  </ItemGroup>
+
 
 </Project>

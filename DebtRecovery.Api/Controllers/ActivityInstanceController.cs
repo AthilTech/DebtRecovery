@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.Configuration.Annotations;
 using DebtRecovery.Api.DTOs.LocalDTOs;
+using DebtRecovery.Api.statics;
 using DebtRecovery.Domain.Commands;
 using DebtRecovery.Domain.Models;
 using DebtRecovery.Domain.Queries;
@@ -74,42 +75,63 @@ namespace DebtRecovery.Api.Controllers
         [HttpGet("generated-activity-instances")]
         public IEnumerable<GeneratedActivityInstanceDTO> GetGeneratedActivityInstances()
         {
-           
+
             List<GeneratedActivityInstanceDTO> allGeneratedActivityInstanceDTOs = new List<GeneratedActivityInstanceDTO>() { };
             var allBills = _mediator.Send(new GetListQuery<Bill>(includes: i => i.Include(e => e.Customer)
              .ThenInclude(c => c.Scenario).ThenInclude(s => s.Activities))).Result;
             foreach (var bill in allBills)
             {
-                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill,DateTime.Now));
+                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill, DateTime.Now, DateTime.Now));
             }
             return allGeneratedActivityInstanceDTOs;
-           
-                
+
+
         }
         [HttpGet("generated-activity-instances-by-date")]
-        public IEnumerable<GeneratedActivityInstanceDTO> GetGeneratedTodayActivityInstances(DateTime? date)
+        public IEnumerable<GeneratedActivityInstanceDTO> GetGeneratedTodayActivityInstances(DateTime? startdate, DateTime? enddate)
         {
 
             List<GeneratedActivityInstanceDTO> allGeneratedActivityInstanceDTOs = new List<GeneratedActivityInstanceDTO>() { };
             var allBills = _mediator.Send(new GetListQuery<Bill>(includes: i => i.Include(e => e.Customer)
              .ThenInclude(c => c.Scenario).ThenInclude(s => s.Activities))).Result;
-            foreach (var bill in allBills)
+            if (startdate != null && enddate != null)
             {
-                allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill,date==null?DateTime.Now.Date:date.Value));
+                foreach (var bill in allBills)
+                {
+                    allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill, startdate.Value, enddate.Value));
+                }
+
             }
+            else
+            {
+                foreach (var bill in allBills)
+                {
+                    allGeneratedActivityInstanceDTOs.AddRange(GenerateActivitiInstances(bill, DateTime.Now, DateTime.Now));
+                }
+            }
+
             return allGeneratedActivityInstanceDTOs;
 
 
 
 
 
+        }
 
+
+
+        [HttpGet("Acivity-by-customer-id")]
+        public async Task<IEnumerable<GeneratedActivityInstanceDTO>> GetActivitybycostumerId(Guid customerId)
+        {
+            return _mediator.Send(new GetListQuery<ActivityInstance>(condition: c => c.CustomerId == customerId, includes: i => i.Include(e => e.Bill)))
+
+             .Result.Select(activity => _mapper.Map<GeneratedActivityInstanceDTO>(activity));
         }
         #endregion
 
         #region Not web Methods
         [ApiExplorerSettings(IgnoreApi = true)]
-        public List<GeneratedActivityInstanceDTO> GenerateActivitiInstances(Bill bill, DateTime? date)
+        public List<GeneratedActivityInstanceDTO> GenerateActivitiInstances(Bill bill, DateTime startdate, DateTime enddate)
         {
             //Expression<Func<Activity, bool>> condition = null,
             //Func< IQueryable<T>, IIncludableQueryable<T, object> > includes = null
@@ -119,7 +141,7 @@ namespace DebtRecovery.Api.Controllers
             foreach (var activity in currentCustomerScenarioActivities)
             {
                 ActivityInstance activityInstance = _mediator.Send(new GetQuery<ActivityInstance>(condition: ai => ai.FK_bill == bill.BillId && ai.Fk_ScenarioActivity == activity.ActivityId)).Result;
-                if (bill.Deadline.AddDays(activity.Type == "thoughtfulness" ? activity.BeforeDays * -1 : activity.AfterDays).Date == date)
+                if (bill.Deadline.AddDays(activity.Type == "thoughtfulness" ? activity.BeforeDays * -1 : activity.AfterDays).Date.InRange(startdate, enddate))
                 {
                     generatedActivityInstanceDTOs.Add(new GeneratedActivityInstanceDTO()
                     {
@@ -131,6 +153,7 @@ namespace DebtRecovery.Api.Controllers
                         ScenarioActivityName = activity.ActivityLabel,
                         Fk_ScenarioActivity = activity.ActivityId,
                         IsAchieved = activityInstance != null,
+                        Type=activity.Type,
                         //bill
                         BillNumber = bill.Number,
                         FK_bill = bill.BillId,
@@ -150,16 +173,6 @@ namespace DebtRecovery.Api.Controllers
             return generatedActivityInstanceDTOs;
 
         }
-
-            [HttpGet("Acivity-by-customer-id")]
-
-            public async Task<IEnumerable<GeneratedActivityInstanceDTO>> GetActivitybycostumerId(Guid customerId)
-            {
-            return _mediator.Send(new GetListQuery<ActivityInstance>(condition: c => c.CustomerId == customerId, includes: i => i.Include(e => e.Bill)))
-
-             .Result.Select(activity => _mapper.Map<GeneratedActivityInstanceDTO>(activity));
-        }
-        
         #endregion
     }
 }

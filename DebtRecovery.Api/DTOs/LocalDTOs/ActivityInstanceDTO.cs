@@ -55,6 +55,7 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
 
         //Activity
         public Guid Fk_ScenarioActivity { get; set; }
+        public string Type { get; set; }
 
         public string ScenarioActivityName { get; set; }
 
