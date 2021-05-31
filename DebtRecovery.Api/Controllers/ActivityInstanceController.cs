@@ -141,27 +141,63 @@ namespace DebtRecovery.Api.Controllers
             foreach (var activity in currentCustomerScenarioActivities)
             {
                 ActivityInstance activityInstance = _mediator.Send(new GetQuery<ActivityInstance>(condition: ai => ai.FK_bill == bill.BillId && ai.Fk_ScenarioActivity == activity.ActivityId)).Result;
-                if (bill.Deadline.AddDays(activity.Type == "thoughtfulness" ? activity.BeforeDays * -1 : activity.AfterDays).Date.InRange(startdate, enddate))
+
+                if(activityInstance!=null)
+                {
+                    generatedActivityInstanceDTOs.Add(new GeneratedActivityInstanceDTO()
+                    {
+                        //activityInstance
+                        ActivityInstanceId=activityInstance.ActivityInstanceId,
+                        PlanedDate =activityInstance.PlanedDate,
+                        Description = activityInstance.Description,
+                        MediaType = activityInstance.MediaType,
+                        ScenarioActivityName = activityInstance.ScenarioActivityName,
+                        Fk_ScenarioActivity = activityInstance.Fk_ScenarioActivity,
+                        IsAchieved = true,
+                        SuccessState=activityInstance.SuccessState,
+                        Type = activity.Type,
+
+                        //bill
+                        BillNumber = bill.Number,
+                        FK_bill = bill.BillId,
+                        BillAmount = bill.Total,
+
+                        //Customer
+                        CustomerName = bill.Customer.Name,
+                        CustomerId = bill.FK_Customer,
+                        CustomerPhoneNumber = bill.Customer.PhoneNumber,
+                        CustumerEmail = bill.Customer.Email,
+
+                        //scenario
+                        ScenarioLabel = activity.Scenario.ScenarioLabel
+
+
+                    });
+                }
+                else if (bill.Deadline.AddDays(activity.Type == "thoughtfulness" ? activity.BeforeDays * -1 : activity.AfterDays).Date.InRange(startdate, enddate))
                 {
                     generatedActivityInstanceDTOs.Add(new GeneratedActivityInstanceDTO()
                     {
                         //activityInstance
 
                         PlanedDate = bill.Deadline.AddDays(activity.Type == "thoughtfulness" ? activity.BeforeDays * -1 : activity.AfterDays).Date,
-                        Description = "something Here",
+                       
                         MediaType = activity.Media,
                         ScenarioActivityName = activity.ActivityLabel,
                         Fk_ScenarioActivity = activity.ActivityId,
-                        IsAchieved = activityInstance != null,
-                        Type=activity.Type,
+                        IsAchieved = false,
+                        Type =activity.Type,
+
                         //bill
                         BillNumber = bill.Number,
                         FK_bill = bill.BillId,
                         BillAmount = bill.Total,
+
                         //Customer
                         CustomerName = bill.Customer.Name,
                         CustomerId = bill.FK_Customer,
-
+                        CustomerPhoneNumber=bill.Customer.PhoneNumber,
+                        CustumerEmail=bill.Customer.Email,
                         //scenario
                         ScenarioLabel = activity.Scenario.ScenarioLabel
 

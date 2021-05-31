@@ -9,11 +9,12 @@ namespace DebtRecovery.Domain.Models
         //
         public Guid ActivityInstanceId { get; set; }
         public string Description { get; set; }
-        public string PlanedDate { get; set; }
+        public DateTime PlanedDate { get; set; }
         public DateTime ActionDate { get; set; }
         public string MediaType { get; set; }
         public int ActionDuration { get; set; }
         public bool IsAuto { get; set; }
+        public bool SuccessState { get; set; }
 
         //Customer
         public Guid CustomerId { get; set; }

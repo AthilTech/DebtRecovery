@@ -4,14 +4,16 @@ using DebtRecovery.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DebtRecovery.Data.Migrations
 {
     [DbContext(typeof(DebtRecoveryContext))]
-    partial class DebtRecoveryContextModelSnapshot : ModelSnapshot
+    [Migration("20210530210637_v2")]
+    partial class v2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -151,8 +153,8 @@ namespace DebtRecovery.Data.Migrations
                     b.Property<string>("MediaType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PlanedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PlanedDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ScenarioActivityName")
                         .HasColumnType("nvarchar(max)");

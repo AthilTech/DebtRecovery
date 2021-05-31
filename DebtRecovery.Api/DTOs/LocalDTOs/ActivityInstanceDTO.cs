@@ -16,6 +16,7 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public int ActionDuration { get; set; }
         public string MediaType { get; set; }
         public bool IsAuto { get; set; }
+        public bool SuccessState { get; set; }
 
         //Customer
         public Guid CustomerId { get; set; }
@@ -44,10 +45,14 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         public string MediaType { get; set; }
         public bool IsAuto { get; set; }
         public bool IsAchieved { get; set; }
+        public bool SuccessState { get; set; }
 
         //Customer
         public Guid CustomerId { get; set; }
         public string CustomerName { get; set; }
+        public string CustomerPhoneNumber { get; set; }
+        public string CustumerEmail { get; set; }
+
 
         //Agent
         public string AgentId { get; set; }

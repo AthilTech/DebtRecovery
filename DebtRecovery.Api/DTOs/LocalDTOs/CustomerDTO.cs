@@ -28,6 +28,7 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         //public ICollection<Bill> Bills { get; set; }
         #endregion
 
+   
 
         //
         public string CustomerAbreviation { get; set; }
