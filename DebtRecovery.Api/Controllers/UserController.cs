@@ -32,7 +32,9 @@ namespace DebtRecovery.Api.Controllers
         public IEnumerable<UserDTO> Get()
         {
             return _mediator.Send(new GetListQuery<User>())
-                .Result.Select(comp => _mapper.Map<UserDTO>(comp));
+
+                .Result.Select(comp => _mapper.Map<UserDTO>(comp)); 
+
         }
 
 

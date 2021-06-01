@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
@@ -8,8 +9,9 @@ namespace DebtRecovery.Domain.Models
 {
     public  class User
          
-    {  
-        
+    {
+      
+      
         public Guid UserId { get; set; }
         public string Icn { get; set; }
         public string Name { get; set; }
@@ -19,8 +21,10 @@ namespace DebtRecovery.Domain.Models
         public string Email { get; set; }
         //subsidiary 
         #region Subsidiary
+       
         public Guid? FK_Subsidiary { get; set; }
-
+        public string SubsidiaryCode { get; set; }
+        public string Label { get; set; }
 
         #endregion
 

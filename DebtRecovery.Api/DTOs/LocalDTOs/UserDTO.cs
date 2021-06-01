@@ -17,5 +17,11 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
         //subsidiary 
         public Guid? FK_Subsidiary { get; set; }
         public string SubsidiaryCode { get; set; }
+        public string Label { get; set; }
+
+        /// role
+        public Guid? FK_Role { get; set; }
+
+
     }
 }

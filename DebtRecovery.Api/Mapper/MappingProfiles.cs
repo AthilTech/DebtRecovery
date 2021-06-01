@@ -48,6 +48,9 @@ namespace DebtRecovery.Api.Mapper
                 .ForMember(d => d.Location, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).Location))
                 .ForMember(d => d.Plannified, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).plannified))
                 .ForMember(d => d.Description, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).Description))
+                                .ForMember(d => d.Status, i => i.MapFrom(src => TripCommunication.GetTripById(src.FK_Trip).Status))
+
+
                 //bill
                 .ForMember(c => c.FK_Bill, i => i.MapFrom(src => src.Bill.BillId))
                 .ForMember(c => c.BillNumber, i => i.MapFrom(src => src.Bill.Number))
@@ -147,7 +150,8 @@ namespace DebtRecovery.Api.Mapper
                 .ForMember(d => d.CustomerAbreviation, i => i.MapFrom(src => src.Name.Trim()[0].ToString() + src.Name[src.Name.IndexOf(' ') + 1].ToString()))
                 .ForMember(b => b.TotalPayed, i => i.MapFrom(src => src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum()))
               .ForMember(b => b.NotPayed, i => i.MapFrom(src => src.Bills.Sum(b => b.Total) - src.Bills.Select(o => o.Payments.Sum(p => p.PayedAmount)).Sum())) //we need to find out what a bill has exactly thats how we can figure out how to do the amount needed
-               .ReverseMap(); 
+              
+              .ReverseMap(); 
 
             CreateMap<Customer, CustomerInfoDTO>()
 
