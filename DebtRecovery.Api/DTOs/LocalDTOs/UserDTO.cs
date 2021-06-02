@@ -8,7 +8,7 @@ namespace DebtRecovery.Api.DTOs.LocalDTOs
     public class UserDTO
     {
         public Guid UserId { get; set; }
-        public string CIN { get; set; }
+        public string Icn { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
 

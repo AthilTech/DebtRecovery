@@ -68,11 +68,7 @@ namespace DebtRecovery.Api.Mapper
             CreateMap<Comment, CommentDTO>()
        .ReverseMap();
             #endregion
-            #region RecoveryAgent 
 
-            CreateMap<Agent, AgentDTO>()
-       .ReverseMap();
-            #endregion
             #region Activity 
 
             CreateMap<Activity, ActivityDTO>()
@@ -138,7 +134,8 @@ namespace DebtRecovery.Api.Mapper
             #endregion
             #region Agent 
             CreateMap<Agent, AgentDTO>()
-          .ForMember(d => d.FullName, i => i.MapFrom(src => $"{src.Manager.LastName} {src.Manager.Name}"))
+                .ForMember(d => d.FullName, i => i.MapFrom(src => $"{src.Name} {src.LastName}"))
+          .ForMember(d => d.Label, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).Label))
           .ForMember(d => d.FK_Subsidiary, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryId))
            .ForMember(f => f.SubsidiaryCode, i => i.MapFrom(src => subsidiaryCommunication.GetSubsidiaryById(src.FK_Subsidiary).SubsidiaryCode))
 
